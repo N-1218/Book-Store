@@ -57,8 +57,8 @@ body {
 
 /* Logo Image */
 .logo-img {
-  height: 45px; /* perfectly fits navbar height */
-  width: auto;
+  height: 70px; /* perfectly fits navbar height */
+  width: 70;
   border-radius: 8px;
   transition: transform 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(51, 78, 172, 0.15));
@@ -92,6 +92,7 @@ body {
 
   .logo-img {
     height: 38px;
+
   }
 
   .logo h3 {
@@ -387,7 +388,6 @@ body {
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
   animation: fadeIn 1.2s ease-in-out 0.3s both;
 }
-
 /* Blog Image */
 .blog-main-image {
   width: 35%;

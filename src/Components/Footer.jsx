@@ -8,9 +8,9 @@ function Footer() {
         {/* Logo and About Section */}
         <div className="footer-section">
           <img src={assets.Logo} alt="Book-IT Logo" className="footer-logo" />
-          <h3>Book-IT</h3>
+          <h3>Books</h3>
           <p>
-            Book-IT is an online book store where users can search, add to cart,
+            Books is an online book store where users can search, add to cart,
             and purchase books easily.
           </p>
         </div>
@@ -32,15 +32,15 @@ function Footer() {
             <a href="https://github.com/Akshatjalan" target="_blank" rel="noreferrer">
               <span>🌐</span>
             </a>
-            <a>
-                <i class="bi bi-instagram"></i>
+            <a href="https://github.com/Akshatjalan" target="_blank" rel="noreferrer">
+                <span>📸</span>
             </a>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Made by <a href="#">Akshat Jalan</a></p>
+        <p>© {new Date().getFullYear()} Made by <a href="#">Namrata Malusare</a></p>
       </div>
     </footer>
   );

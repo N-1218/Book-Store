@@ -4,6 +4,10 @@ import Fantasy from "../assets/Fantasy.jpg";
 import Romance from "../assets/Romance.jpg";
 import bookstore from "../assets/bookstore.jpg"
 import Logo from"../assets/logo.jpg"
+import Comic from "../assets/comic.jpg"
+import Thriller from"../assets/thriller.jpg"
+import Children from "../assets/childern.jpg"
+import Drama from "../assets/drama.jpg"
 
 
 export const assets={
@@ -14,4 +18,8 @@ export const assets={
     Romance,
     bookstore,
     Logo,
+    Comic,
+    Thriller,
+    Children,
+    Drama
 };

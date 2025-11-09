@@ -86,7 +86,7 @@ function RegistrationPage() {
           <p>Or sign up with:</p>
           <div className="social-icons">
             <span>🌐</span>
-            <span>🐦</span>
+            <span>📸</span>
             <span>📘</span>
             <span>💻</span>
           </div>

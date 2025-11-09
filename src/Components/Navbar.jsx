@@ -28,7 +28,7 @@ function Navbar() {
 
       {/* Right Section */}
       <div className="icon-about d-flex align-items-center gap-3">
-        <Link to="/about" className="me-3">
+        <Link to="./Components/About.jsx" className="me-3">
           About Us
         </Link>
 

@@ -39,7 +39,7 @@ function Home() {
       price: "Rs.665/-",
     },
     {
-      img: assets.Mystery,
+      img: assets.Comic,
       title: "Comics",
       author: "Stan Lee",
       desc: "Comics is a medium used to express ideas with images, often combined with text or other visual information.",
@@ -47,7 +47,7 @@ function Home() {
       price: "Rs.520/-",
     },
     {
-      img: assets.Mystery,
+      img: assets.Thriller,
       title: "Thriller",
       author: "James Patterson",
       desc: "Thriller is a genre of fiction with numerous, often overlapping, subgenres, including crime, horror, and detective fiction.",
@@ -55,7 +55,7 @@ function Home() {
       price: "Rs.375/-",
     },
     {
-      img: assets.Mystery,
+      img: assets.Children,
       title: "Children's Books",
       author: "J.K. Rowling",
       desc: "Children's books are massively popular in both print and ebook versions.",
@@ -63,7 +63,7 @@ function Home() {
       price: "Rs.299/-",
     },
     {
-      img: assets.Mystery,
+      img: assets.Drama,
       title: "Drama",
       author: "Elizabeth Gilbert",
       desc: "Drama is the specific mode of fiction represented in performance: a play, opera, mime, ballet, etc.",
