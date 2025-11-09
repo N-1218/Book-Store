@@ -3,6 +3,8 @@ import Navbar from "./Components/Navbar";
 import BlogDetails from "./Components/Blogdetails";
 import Home from "./Components/Home";
 import About from "./Components/About";
+import RegistrationPage from "./Components/Registrationpage";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
       <BlogDetails/>
       <Home />
       <About/>
+      <Footer/>
 
       
     </>

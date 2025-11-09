@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { assets } from "../assets/assets.js";
+
 
 function Navbar() {
   return (
@@ -18,17 +20,30 @@ function Navbar() {
       </div>
 
       {/* Logo Section */}
-      <div className="logo">
-        <h3 className="mb-0">readbooks</h3>
+      <div className="logo d-flex align-items-center gap-2">
+       <img src="src/assets/logo.jpg" alt="Readbooks Logo" className="logo-img" />
+       <h3 className="mb-0">Books</h3>
       </div>
 
+
       {/* Right Section */}
-      <div className="icon-about d-flex align-items-center">
+      <div className="icon-about d-flex align-items-center gap-3">
         <Link to="/about" className="me-3">
           About Us
         </Link>
 
-        <div className="dropdown">
+        {/* Wishlist and Cart Icons */}
+        <div className="icon-group d-flex align-items-center gap-3">
+          <div className="icon wishlist" title="Wishlist">
+            <i className="material-icons">favorite_border</i>
+          </div>
+          <div className="icon cart" title="Cart">
+            <i className="material-icons">shopping_cart</i>
+          </div>
+        </div>
+
+        {/* Account Dropdown */}
+        <div className="dropdown ms-3">
           <Link
             className="nav-link dropdown-toggle"
             to="#"
@@ -44,7 +59,7 @@ function Navbar() {
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <Link className="dropdown-item" to="/login">
+              <Link className="dropdown-item" to="/RegistrationPage">
                 Registration
               </Link>
             </li>

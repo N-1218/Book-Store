@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import Navbar from "./Navbar";
 
-function Loginpage() {
+function RegistrationPage() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: "Admin",
+    lastName: "Admin",
+    email: "Admin@gmail.com",
+    password: "******",
     subscribe: false,
   });
 
@@ -20,7 +21,7 @@ function Loginpage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    alert(`Welcome ${formData.firstName}! Your signup is successful.`);
+    alert("Welcome ${formData.firstName}! Your Registration is Successful....!");
   };
 
   return (
@@ -95,4 +96,4 @@ function Loginpage() {
   );
 }
 
-export default Loginpage;
+export default RegistrationPage;

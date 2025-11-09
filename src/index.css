@@ -1,7 +1,5 @@
 /* ==========================================================
-   Home Page — Modern Book Gallery (Glassmorphism + Background)
-   Author: ChatGPT (Optimized & Responsive)
-   ========================================================== */
+\======================================================= */
 
 /* ---------- GLOBAL RESET ---------- */
 * {
@@ -23,15 +21,11 @@ body {
   overflow-x: hidden;
 }
 /*---------------------Navbar CSS------------------------*/
-/* ==========================================================
-   NAVBAR — Glassmorphism + Responsive Design
-   Matches Home Page Book Section Style
-   ========================================================== */
 
-/* ---------- GLOBAL NAVBAR STYLE ---------- */
 .nav-bar {
   width: 100%;
   position: sticky;
+  height:"60px";
   top: 0;
   left: 0;
   z-index: 1000;
@@ -39,7 +33,7 @@ body {
   backdrop-filter: blur(15px);
   box-shadow: 0 4px 20px rgba(51, 78, 172, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 12px 6%;
+  padding: 8px 5%; /* slightly reduced for sleek look */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,19 +41,66 @@ body {
 }
 
 /* ---------- LOGO ---------- */
-.logo h3 {
-  font-size: 1.7rem;
-  font-weight: 800;
-  color: #334eac;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  /* Remove any separate background */
+  background: transparent; 
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+}
+
+/* Logo Image */
+.logo-img {
+  height: 45px; /* perfectly fits navbar height */
+  width: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(51, 78, 172, 0.15));
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 3px 8px rgba(51, 78, 172, 0.25));
+}
+
+/* Logo Text */
+.logo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #334eac;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .logo h3:hover {
   color: #5a6efc;
-  text-shadow: 0 0 10px rgba(90, 110, 252, 0.4);
+  text-shadow: 0 0 8px rgba(90, 110, 252, 0.4);
+}
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .logo {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .logo-img {
+    height: 38px;
+  }
+
+  .logo h3 {
+    font-size: 1.2rem;
+  }
+
+  .nav-bar {
+    padding: 8px 4%;
+  }
 }
 
 /* ---------- LEFT SECTION ---------- */
@@ -126,17 +167,82 @@ body {
 .icon-about a {
   color: #1a1a1a;
   text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 .icon-about a:hover {
-  color: #334eac;
+  color: #0b0b0b;
 }
+
+/* ---------- ICON GROUP ---------- */
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Individual Icon */
+.icon {
+  font-size: 1.1rem; /* ↓ reduced size */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.15);
+}
+
+/* Wishlist */
+.wishlist {
+  color: #131212;
+}
+
+.wishlist:hover {
+  color: #111111;
+}
+
+/* Cart */
+.cart {
+  color: #121313;
+}
+
+.cart:hover {
+  color: #0f0f0f;
+}
+
+/* Account */
+.dropdown .nav-link {
+  color: #334eac;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdown .nav-link:hover {
+  transform: scale(1.1);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .icon-group {
+    gap: 10px;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+  }
+
+  .icon-about a {
+    font-size: 0.9rem;
+  }
+}
+
 
 /* ---------- DROPDOWN ---------- */
 .dropdown .nav-link {
-  color: #334eac;
+  color: #252526;
   font-size: 1.8rem;
   transition: transform 0.3s ease;
 }
@@ -220,10 +326,6 @@ body {
     margin-top: 10px;
   }
 
-  .logo {
-    align-self: center;
-    margin: 10px 0;
-  }
 }
 
 @media (max-width: 576px) {
@@ -251,9 +353,7 @@ body {
 
 
 /*----------------Blog CSS---------------*/
- /* ------------------------------------------------------
-   BLOG SECTION (with background image + animations)
------------------------------------------------------- */
+ 
 .blog-container {
   font-family: "Poppins", sans-serif;
   color: #222;
@@ -690,3 +790,278 @@ button:hover {
     font-size: 0.9rem;
   }
 }
+
+
+
+
+
+
+/*-------Footer CSS------------------------*/
+.footer {
+  background-color: white;
+  color: #0a0909;
+  padding: 50px 0 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 40px;
+  padding: 0 10%;
+}
+
+.footer-section {
+  flex: 1 1 250px;
+  text-align: center;
+}
+
+.footer-logo {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.footer-section h4,
+.footer-section h3 {
+  color: #ff9800;
+  margin-bottom: 10px;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #0a0a0a;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section a {
+  color: #7a6546;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #161414;
+}
+
+.social-links a {
+  margin: 0 10px;
+  font-size: 1.3rem;
+  color: #0d0d0d;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-links a:hover {
+  color: #ff9800;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 15px;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.footer-bottom a {
+  color: #ff9800;
+  text-decoration: none;
+}
+
+
+
+
+/*---------Registration Form CSS-------------------------------*/
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:transparent;
+  background-attachment: fixed;
+  animation: bgSlide 10s infinite alternate ease-in-out;
+}
+
+/* Subtle animated background shift */
+@keyframes bgSlide {
+  0% {
+    background-position: left top;
+  }
+  100% {
+    background-position: right bottom;
+  }
+}
+
+/* ===== Card ===== */
+.login-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 90%;
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.login-card h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #334eac;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+/* ===== Form Fields ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #5a6efc;
+  box-shadow: 0 0 8px rgba(90, 110, 252, 0.3);
+  transform: scale(1.02);
+}
+
+/* ===== Checkbox ===== */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ===== Button ===== */
+.signup-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #5a6efc, #334eac);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  letter-spacing: 0.5px;
+}
+
+.signup-btn:hover {
+  background: linear-gradient(135deg, #334eac, #5a6efc);
+  box-shadow: 0 0 15px rgba(90, 110, 252, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ===== Social Section ===== */
+.social-login {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.social-login p {
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icons span {
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-icons span:hover {
+  transform: scale(1.2);
+  background: linear-gradient(135deg, #5a6efc, #334eac);
+  color: white;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 30px 25px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  input {
+    font-size: 0.9rem;
+  }
+
+  .signup-btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    width: 90%;
+    border-radius: 15px;
+  }
+
+  .social-icons span {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}
+
+
