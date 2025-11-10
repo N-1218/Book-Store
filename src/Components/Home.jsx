@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { assets } from "../assets/assets.js";
-
 
 function Home() {
   const carouselRef = useRef(null);
@@ -12,7 +11,7 @@ function Home() {
       author: "Jojo Moyes",
       desc: "If you want another book then click the below button..!",
       rating: 4.5,
-      price: "Rs.340/-",
+      price: 340,
     },
     {
       img: assets.Mystery,
@@ -20,7 +19,7 @@ function Home() {
       author: "Elizabeth Gilbert",
       desc: "Readers of all ages and walks of life have drawn inspiration from Elizabeth Gilbert’s books.",
       rating: 4.8,
-      price: "Rs.450/-",
+      price: 450,
     },
     {
       img: assets.Fantasy,
@@ -28,7 +27,7 @@ function Home() {
       author: "Ruth Ozeki",
       desc: "In Tokyo, sixteen-year-old Nao has decided there’s only one escape from her aching loneliness.",
       rating: 4.3,
-      price: "Rs.175/-",
+      price: 175,
     },
     {
       img: assets.Romance,
@@ -36,7 +35,7 @@ function Home() {
       author: "F. Scott Fitzgerald",
       desc: "The novel was inspired by a youthful romance Fitzgerald had with socialite Ginevra King.",
       rating: 4.9,
-      price: "Rs.665/-",
+      price: 665,
     },
     {
       img: assets.Comic,
@@ -44,7 +43,7 @@ function Home() {
       author: "Stan Lee",
       desc: "Comics is a medium used to express ideas with images, often combined with text or other visual information.",
       rating: 4.6,
-      price: "Rs.520/-",
+      price: 520,
     },
     {
       img: assets.Thriller,
@@ -52,7 +51,7 @@ function Home() {
       author: "James Patterson",
       desc: "Thriller is a genre of fiction with numerous, often overlapping, subgenres, including crime, horror, and detective fiction.",
       rating: 4.4,
-      price: "Rs.375/-",
+      price: 375,
     },
     {
       img: assets.Children,
@@ -60,7 +59,7 @@ function Home() {
       author: "J.K. Rowling",
       desc: "Children's books are massively popular in both print and ebook versions.",
       rating: 4.7,
-      price: "Rs.299/-",
+      price: 299,
     },
     {
       img: assets.Drama,
@@ -68,9 +67,27 @@ function Home() {
       author: "Elizabeth Gilbert",
       desc: "Drama is the specific mode of fiction represented in performance: a play, opera, mime, ballet, etc.",
       rating: 4.5,
-      price: "Rs.310/-",
+      price: 310,
     },
   ];
+
+  // Quantity state
+  const [quantities, setQuantities] = useState({});
+
+  const handleAddToCart = (title) => {
+    setQuantities((prev) => ({ ...prev, [title]: 1 }));
+  };
+
+  const increaseQty = (title) => {
+    setQuantities((prev) => ({ ...prev, [title]: prev[title] + 1 }));
+  };
+
+  const decreaseQty = (title) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [title]: prev[title] > 1 ? prev[title] - 1 : 0,
+    }));
+  };
 
   // Scroll handler
   const scroll = (direction) => {
@@ -120,9 +137,35 @@ function Home() {
                   </span>
                 </div>
 
-                <p className="price">{book.price}</p>
+                <p className="price">Rs. {book.price}/-</p>
                 <p className="info">{book.desc}</p>
-                <button type="button">See the Book</button>
+
+                {/* Add to Cart / Quantity */}
+                {quantities[book.title] > 0 ? (
+                  <div className="quantity-controls">
+                    <button
+                      className="qty-btn"
+                      onClick={() => decreaseQty(book.title)}
+                    >
+                      −
+                    </button>
+                    <span className="qty">{quantities[book.title]}</span>
+                    <button
+                      className="qty-btn"
+                      onClick={() => increaseQty(book.title)}
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="add-cart-btn"
+                    onClick={() => handleAddToCart(book.title)}
+                  >
+                    🛒 Add to Cart
+                  </button>
+                )}
               </div>
             </div>
           ))}

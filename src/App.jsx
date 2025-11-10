@@ -12,7 +12,10 @@ function App() {
       <Navbar />
       <BlogDetails/>
       <Home />
-      <About/>
+      <About>
+        <Navbar/>
+      </About>
+      
       <Footer/>
 
       

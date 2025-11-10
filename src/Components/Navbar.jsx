@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { assets } from "../assets/assets.js";
 
 
+
 function Navbar() {
   return (
     <nav className="nav-bar d-flex justify-content-between align-items-center p-2">
@@ -28,7 +29,7 @@ function Navbar() {
 
       {/* Right Section */}
       <div className="icon-about d-flex align-items-center gap-3">
-        <Link to="./Components/About.jsx" className="me-3">
+        <Link to={"./App"} className="me-3">
           About Us
         </Link>
 
