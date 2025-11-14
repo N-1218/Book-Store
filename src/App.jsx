@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import 'src/index.css';
+import 'src/main.jsx';
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import BlogDetails from "./Components/Blogdetails";
