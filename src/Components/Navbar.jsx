@@ -1,71 +1,105 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { assets } from "../assets/assets.js";
 
+function Navbar({ cartCount = 0, setSearchTerm }) {
+  // 🔍 Handle search input
+  const handleSearch = (e) => {
+    if (setSearchTerm) {
+      setSearchTerm(e.target.value.toLowerCase());
+    }
+  };
 
-
-function Navbar() {
   return (
-    <nav className="nav-bar d-flex justify-content-between align-items-center p-2">
+    <nav className="nav-bar d-flex justify-content-between align-items-center px-4 py-2 shadow-sm bg-light">
       {/* Left Section */}
-      <div className="nav1 d-flex align-items-center">
-        <Link to="#" className="me-3">
-          Browse Categories
-        </Link>
+      <div className="d-flex align-items-center gap-3">
+        {/* 🔍 Search Input */}
         <input
           type="text"
-          id="search_book"
-          placeholder="Search Book"
-          className="form-control"
+          placeholder="Search Book..."
+          className="form-control form-control-sm"
+          style={{ width: "220px" }}
+          onChange={handleSearch}
         />
       </div>
 
-      {/* Logo Section */}
-      <div className="logo d-flex align-items-center gap-2">
-       <img src="src/assets/logo.jpg" alt="Readbooks Logo" className="logo-img" />
-       <h3 className="mb-0">Books</h3>
+      {/* Logo */}
+      <div className="d-flex align-items-center gap-2">
+        <img
+          src="src/assets/logo.jpg"
+          alt="Books Logo"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+        <h4 className="mb-0 fw-bold text-primary">Books</h4>
       </div>
 
-
       {/* Right Section */}
-      <div className="icon-about d-flex align-items-center gap-3">
-        <Link to={"./App"} className="me-3">
-          About Us
+      <div className="d-flex align-items-center gap-4">
+        <Link
+            to="/contact"
+            className="text-dark fw-semibold text-decoration-none">
+            Contact Us
         </Link>
 
-        {/* Wishlist and Cart Icons */}
-        <div className="icon-group d-flex align-items-center gap-3">
-          <div className="icon wishlist" title="Wishlist">
-            <i className="material-icons">favorite_border</i>
-          </div>
-          <div className="icon cart" title="Cart">
-            <i className="material-icons">shopping_cart</i>
-          </div>
+
+        {/* 🛒 Cart Icon */}
+        <div
+          className="position-relative"
+          title="Cart"
+          style={{ cursor: "pointer" }}
+        >
+          <i className="material-icons" style={{ fontSize: "26px" }}>
+            shopping_cart
+          </i>
+          {cartCount > 0 && (
+            <span
+              style={{
+                position: "absolute",
+                top: "-6px",
+                right: "-10px",
+                background: "red",
+                color: "white",
+                borderRadius: "50%",
+                padding: "2px 6px",
+                fontSize: "11px",
+                fontWeight: "bold",
+              }}
+            >
+              {cartCount}
+            </span>
+          )}
         </div>
 
-        {/* Account Dropdown */}
-        <div className="dropdown ms-3">
+        {/* 👤 Account Dropdown */}
+        <div className="dropdown">
           <Link
-            className="nav-link dropdown-toggle"
+            className="nav-link dropdown-toggle text-dark"
             to="#"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i className="material-icons">account_circle</i>
+            <i className="material-icons" style={{ fontSize: "28px" }}>
+              account_circle
+            </i>
           </Link>
           <ul
             className="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <Link className="dropdown-item" to="/RegistrationPage">
+              <Link className="dropdown-item" to="/registrationpage">
                 Registration
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/register">
+              <Link className="dropdown-item" to="/loginpage">
                 Login
               </Link>
             </li>

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 function RegistrationPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    firstName: "Admin",
-    lastName: "Admin",
-    email: "Admin@gmail.com",
-    password: "******",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
     subscribe: false,
   });
 
@@ -20,79 +23,73 @@ function RegistrationPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    alert("Welcome ${formData.firstName}! Your Registration is Successful....!");
+
+    // Save user data to localStorage
+    localStorage.setItem("user", JSON.stringify(formData));
+
+    alert(`✅ Welcome ${formData.firstName}! Registration Successful 🎉`);
+    navigate("/loginpage"); // redirect to login
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2>Sign Up Now</h2>
+    <>
+      <Navbar />
+      <div className="registration-container">
+        <div className="registration-card">
+          <h2>Create Your Account</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-row">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-row">
             <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
               onChange={handleChange}
               required
             />
+
             <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
               onChange={handleChange}
               required
             />
-          </div>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+            <div className="checkbox-row">
+              <input
+                type="checkbox"
+                name="subscribe"
+                checked={formData.subscribe}
+                onChange={handleChange}
+              />
+              <label>Subscribe to our newsletter</label>
+            </div>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-
-          <div className="checkbox-row">
-            <input
-              type="checkbox"
-              name="subscribe"
-              checked={formData.subscribe}
-              onChange={handleChange}
-            />
-            <label>Subscribe to our newsletter</label>
-          </div>
-
-          <button type="submit" className="signup-btn">
-            Sign Up
-          </button>
-        </form>
-
-        <div className="social-login">
-          <p>Or sign up with:</p>
-          <div className="social-icons">
-            <span>🌐</span>
-            <span>📸</span>
-            <span>📘</span>
-            <span>💻</span>
-          </div>
+            <button type="submit" className="signup-btn">Register</button>
+          </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
