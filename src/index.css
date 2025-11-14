@@ -1,5 +1,3 @@
-/* ==========================================================
-\======================================================= */
 
 /* ---------- GLOBAL RESET ---------- */
 * {
@@ -22,68 +20,24 @@ body {
 }
 /*---------------------Navbar CSS------------------------*/
 
+/* ---------- NAVBAR ---------- */
 .nav-bar {
   width: 100%;
   position: sticky;
-  height:"60px";
   top: 0;
   left: 0;
+  height: 60px; /* FIXED */
   z-index: 1000;
   background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(15px);
   box-shadow: 0 4px 20px rgba(51, 78, 172, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 5%; /* slightly reduced for sleek look */
+  padding: 8px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
-/* --- Cart Icon --- */
-.icon.cart {
-  position: relative;
-  font-size: 26px;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.icon.cart:hover {
-  color: #007bff;
-  transform: scale(1.1);
-}
-
-/* --- Cart Count Badge --- */
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background: #ff4757;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 50%;
-  padding: 3px 7px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  animation: popIn 0.3s ease;
-}
-
-/* --- Subtle Pop Animation --- */
-@keyframes popIn {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  80% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-
 
 /* ---------- LOGO ---------- */
 .logo {
@@ -91,65 +45,29 @@ body {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  /* Remove any separate background */
-  background: transparent; 
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
-.logo:hover {
-  transform: translateY(-2px);
-}
-
-/* Logo Image */
 .logo-img {
-  height: 70px; /* perfectly fits navbar height */
-  width: 70;
+  height: 55px;
+  width: 55px;
   border-radius: 8px;
-  transition: transform 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(51, 78, 172, 0.15));
+  transition: 0.3s ease;
 }
 
 .logo-img:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 3px 8px rgba(51, 78, 172, 0.25));
+  transform: scale(1.08);
 }
 
-/* Logo Text */
 .logo h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #334eac;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.logo h3:hover {
-  color: #5a6efc;
-  text-shadow: 0 0 8px rgba(90, 110, 252, 0.4);
-}
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .logo {
-    padding: 4px 8px;
-    gap: 6px;
-  }
-
-  .logo-img {
-    height: 38px;
-
-  }
-
-  .logo h3 {
-    font-size: 1.2rem;
-  }
-
-  .nav-bar {
-    padding: 8px 4%;
-  }
-}
-
-/* ---------- LEFT SECTION ---------- */
+/* ---------- LEFT LINKS ---------- */
 .nav1 {
   display: flex;
   align-items: center;
@@ -157,27 +75,23 @@ body {
 }
 
 .nav1 a {
+  text-decoration: none;
   color: #1a1a1a;
   font-weight: 600;
-  text-decoration: none;
   font-size: 1rem;
   position: relative;
-  transition: color 0.3s ease;
+  transition: 0.3s;
 }
 
 .nav1 a::after {
   content: "";
   position: absolute;
+  bottom: -4px;
+  left: 0;
   width: 0%;
   height: 2px;
-  left: 0;
-  bottom: -4px;
   background: #5a6efc;
-  transition: width 0.3s ease;
-}
-
-.nav1 a:hover {
-  color: #334eac;
+  transition: 0.3s;
 }
 
 .nav1 a:hover::after {
@@ -190,125 +104,54 @@ body {
   padding: 6px 12px;
   border: none;
   border-radius: 8px;
-  outline: none;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 10px rgba(51, 78, 172, 0.15);
-  font-size: 0.95rem;
-  color: #333;
-  transition: all 0.3s ease;
-}
-
-#search_book:focus {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 12px rgba(90, 110, 252, 0.3);
-}
-
-/* ---------- RIGHT SECTION ---------- */
-.icon-about {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.icon-about a {
-  color: #1a1a1a;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-}
-
-.icon-about a:hover {
-  color: #0b0b0b;
+  transition: 0.3s ease;
 }
 
 /* ---------- ICON GROUP ---------- */
 .icon-group {
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
+  gap: 14px;
 }
 
-/* Individual Icon */
 .icon {
-  font-size: 1.1rem; /* ↓ reduced size */
+  font-size: 1.3rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .icon:hover {
   transform: scale(1.15);
 }
 
-/* Wishlist */
-.wishlist {
-  color: #131212;
+/* ---------- CART BADGE ---------- */
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #ff4757;
+  color: #fff;
+  border-radius: 50%;
+  animation: popIn 0.3s ease;
 }
 
-.wishlist:hover {
-  color: #111111;
+/* POP EFFECT */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  80% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
-/* Cart */
-.cart {
-  color: #121313;
-}
-
-.cart:hover {
-  color: #0f0f0f;
-}
-
-/* Account */
-.dropdown .nav-link {
-  color: #334eac;
-  font-size: 1.1rem;
-  transition: transform 0.3s ease;
-}
-
-.dropdown .nav-link:hover {
-  transform: scale(1.1);
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .icon-group {
-    gap: 10px;
-  }
-
-  .icon {
-    font-size: 1.1rem;
-  }
-
-  .icon-about a {
-    font-size: 0.9rem;
-  }
-}
-
-
-/* ---------- DROPDOWN ---------- */
-.dropdown .nav-link {
-  color: #252526;
-  font-size: 1.8rem;
-  transition: transform 0.3s ease;
-}
-
-.dropdown .nav-link:hover {
-  transform: scale(1.1);
-}
-
+/* ---------- DROPDOWN MENU ---------- */
 .dropdown-menu {
   border-radius: 10px;
-  border: none;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
-}
-
-.dropdown-item {
-  font-weight: 500;
-  color: #333;
-  transition: all 0.3s ease;
 }
 
 .dropdown-item:hover {
@@ -316,44 +159,32 @@ body {
   color: #334eac;
 }
 
-/* ---------- HAMBURGER MENU FOR SMALL SCREENS ---------- */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
+/* =========================================================================================
+   ✔  RESPONSIVE DESIGN  
+========================================================================================= */
 
-.menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: #334eac;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-/* ---------- RESPONSIVE DESIGN ---------- */
+/* ---------- TABLET (≤992px) ---------- */
 @media (max-width: 992px) {
   .nav-bar {
-    flex-wrap: wrap;
-    padding: 10px 5%;
-  }
-
-  .nav1 {
-    width: 100%;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    padding: 10px 4%;
   }
 
   #search_book {
     width: 60%;
   }
+
+  .logo-img {
+    height: 50px;
+    width: 50px;
+  }
 }
 
+/* ---------- MOBILE (≤768px) ---------- */
 @media (max-width: 768px) {
   .nav-bar {
     flex-direction: column;
     align-items: flex-start;
+    height: auto;
     padding: 12px 5%;
   }
 
@@ -363,37 +194,36 @@ body {
   }
 
   #search_book {
-    width: 65%;
+    width: 70%;
   }
 
-  .icon-about {
-    width: 100%;
-    justify-content: space-between;
+  .icon-group {
     margin-top: 10px;
+    align-self: flex-end;
   }
 
+  .logo h3 {
+    font-size: 1.4rem;
+  }
 }
 
+/* ---------- SMALL MOBILE (≤576px) ---------- */
 @media (max-width: 576px) {
   .nav-bar {
     padding: 10px 4%;
+  }
+
+  #search_book {
+    width: 100%;
   }
 
   .nav1 a {
     font-size: 0.9rem;
   }
 
-  #search_book {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  .logo h3 {
-    font-size: 1.4rem;
-  }
-
-  .icon-about a {
-    font-size: 0.9rem;
+  .logo-img {
+    height: 42px;
+    width: 42px;
   }
 }
 
@@ -1338,19 +1168,20 @@ input:focus {
 /* ===== Heading ===== */
 .container h2 {
   font-size: 2.2rem;
-  color:"blue";
   font-weight: 700;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin-bottom: 15px;
   text-align: center;
   animation: slideDown 1s ease forwards;
+  background: linear-gradient(90deg, #5b3f2c, #645137);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 
 /* ===== Paragraph ===== */
 .container p {
   font-size: 1rem;
-  color: #555;
+  color: #302d2d;
   margin-bottom: 50px;
   text-align: center;
   animation: slideDown 1s ease 0.3s forwards;
@@ -1407,10 +1238,10 @@ form input,
 form textarea {
   border-radius: 12px;
   border: 1px solid #ccc;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
   font-size: 1rem;
   width: 100%;
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
   transition: all 0.4s ease;
 }
 
@@ -1441,7 +1272,7 @@ form textarea:not(:placeholder-shown) + label {
   top: -10px;
   left: 12px;
   font-size: 0.8rem;
-  color: #5a6efc;
+  color: #b8762b;
   background: #fff;
   padding: 0 5px;
 }
@@ -1457,7 +1288,6 @@ form button {
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.4s ease;
-  letter-spacing: 0.5px;
 }
 
 form button:hover {
@@ -1465,12 +1295,12 @@ form button:hover {
   box-shadow: 0 10px 25px rgba(51, 78, 172, 0.4);
 }
 
-/* ===== Input Margin ===== */
+/* ===== Input Margin Utility Class ===== */
 .mb-3 {
   margin-bottom: 20px !important;
 }
 
-/* ===== Responsive ===== */
+/* ===== Responsive Styles ===== */
 @media (max-width: 768px) {
   form {
     padding: 30px;
