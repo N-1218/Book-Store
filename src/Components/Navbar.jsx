@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { assets } from "../assets/assets";
 
 function Navbar({ cartCount = 0, setSearchTerm }) {
   // 🔍 Handle search input
@@ -26,7 +27,7 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
       {/* Logo */}
       <div className="d-flex align-items-center gap-2">
         <img
-          src="src/assets/logo.jpg"
+          src={assets.Logo}
           alt="Books Logo"
           style={{
             width: "40px",
