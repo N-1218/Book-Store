@@ -27,7 +27,7 @@ function Contact() {
     setFormData({ name: "", email: "", subject: "", message: "" });
 
     // Redirect to main page
-    navigate("src/Components/App.jsx"); 
+    navigate("/App.jsx"); 
   };
 
   return (
