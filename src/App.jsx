@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import 'src/index.css';
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import BlogDetails from "./Components/Blogdetails";
