@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import 'src/index.css';
-import 'src/main.jsx';
-import Navbar from "./Components/Navbar";
-import Home from "./Components/Home";
-import BlogDetails from "./Components/Blogdetails";
-import About from "./Components/About";
-import RegistrationPage from "./Components/Registrationpage";
-import Footer from "./Components/Footer";
-import Contact from "./Components/Contact";
+import './index.css';
+import './main.jsx';
+import Navbar from "./Components/Navbar.jsx";
+import Home from "./Components/Home.jsx";
+import BlogDetails from "./Components/Blogdetails.jsx";
+import About from "./Components/About.jsx";
+import RegistrationPage from "./Components/Registrationpage.jsx";
+import Footer from "./Components/Footer.jsx";
+import Contact from "./Components/Contact.jsx";
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
