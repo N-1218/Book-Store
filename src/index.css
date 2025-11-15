@@ -1198,7 +1198,6 @@ input:focus {
     text-align: center;
     animation: slideDown 1s ease forwards;
     background: linear-gradient(90deg, #5b3f2c, #645137);
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
