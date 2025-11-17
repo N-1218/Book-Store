@@ -13,7 +13,7 @@ import LoginPage from './Components/Loginpage.jsx';
 import Contact from './Components/Contact.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter  basename="/Book-Store">
+  <BrowserRouter >
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/navbar" element={<Navbar />} />
