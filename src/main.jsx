@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from './App.jsx';
+import App from './App.jsx'
 import Navbar from './Components/Navbar.jsx';
 import Home from './Components/Home.jsx';
 import BlogDetails from './Components/Blogdetails.jsx';
 import Footer from './Components/Footer.jsx';
 import RegistrationPage from './Components/Registrationpage.jsx';
-import LoginPage from './Components/Loginpage.jsx';
 import Contact from './Components/Contact.jsx';
+import LoginPage from './Components/Loginpage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter >
+  <BrowserRouter  >
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/navbar" element={<Navbar />} />
