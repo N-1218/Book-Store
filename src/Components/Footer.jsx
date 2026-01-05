@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { assets } from "../assets/assets.js";
 
 function Footer() {
@@ -47,3 +48,11 @@ function Footer() {
 }
 
 export default Footer;
+=======
+
+const Footer = () => {
+  return <div className="py-4 text-center bg-primary text-white "> &copy; 2023 coderamrin all right reserved</div>;
+};
+
+export default Footer;
+>>>>>>> 69952499ab6155c0a3bd356a14ed86b3feb3b924

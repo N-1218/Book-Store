@@ -8,6 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+<<<<<<< HEAD
+=======
+dist
+>>>>>>> 69952499ab6155c0a3bd356a14ed86b3feb3b924
 dist-ssr
 *.local
 
