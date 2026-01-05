@@ -1,27 +1,13 @@
-<<<<<<< HEAD
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import './index.css';
+import App from "./App";
+import "./index.css";
 
-import App from './App.jsx';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/Book-Store">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
 );
-=======
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
->>>>>>> 69952499ab6155c0a3bd356a14ed86b3feb3b924
