@@ -1,8 +1,10 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import Blogdetails from "./Blogdetails";
 
 function Home() {
   return (
+    
     <main className="home-container">
       {/* Header */}
       <header className="home-header">
@@ -54,7 +56,9 @@ function Home() {
         </p>
       </section>
     </main>
+   
   );
+   <Blogdetails/>
 }
 
 export default Home;
