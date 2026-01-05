@@ -1,35 +1,67 @@
-import React from "react";
-import { assets } from "../assets/assets.js";
+import React, { useRef, useState } from "react";
+import { assets } from "../assets/assets";
 
+function Blogdetails({ setCartCount = () => {}, searchTerm = "" }) {
+  const carouselRef = useRef(null);
+  const [quantities, setQuantities] = useState({});
 
-const BlogDetails = () => {
-  return (
-    <div className="blog-container">
-      <header className="blog-header">
-        <h1 className="blog-title">
-          Explore the Best Book Stores in Pune 2025 Today
-        </h1>
-        <div className="blog-meta">
-          <span><i className="fa fa-clock"></i> 2025</span>
-          <span><i className="fa fa-user"></i> Store Team</span>
-          <span><i className="fa fa-folder"></i> Blog-Post</span>
-        </div>
-      </header>
+  const books = [
+    { img: assets.history, title: "History", author: "Jojo Moyes", price: 340 },
+    { img: assets.Mystery, title: "Mystery", author: "Elizabeth Gilbert", price: 450 },
+    { img: assets.Fantasy, title: "Fantasy", author: "Ruth Ozeki", price: 175 },
+    { img: assets.Romance, title: "Romance Novel", author: "F. Scott Fitzgerald", price: 665 },
+    { img: assets.Comic, title: "Comics", author: "Stan Lee", price: 520 },
+    { img: assets.Thriller, title: "Thriller", author: "James Patterson", price: 375 },
+    { img: assets.Children, title: "Children's Books", author: "J.K. Rowling", price: 299 },
+    { img: assets.Drama, title: "Drama", author: "Elizabeth Gilbert", price: 310 },
+  ];
 
-      {/* Blog Image Section */}
-      <section className="blog-image-section">
-        <img src={assets.bookstore} alt="Bookstore in Pune" className="blog-main-image" />
-      </section>
-
-      {/* Blog content placeholder */}
-      <section className="blog-content">
-        <p>
-          Discover the most inspiring and cozy bookstores across Pune, where every shelf 
-          tells a story. From vintage collections to modern novels — find your next read today!
-        </p>
-      </section>
-    </div>
+  const term = searchTerm.toLowerCase();
+  const filteredBooks = books.filter(
+    (b) =>
+      b.title.toLowerCase().includes(term) ||
+      b.author.toLowerCase().includes(term)
   );
-};
 
-export default BlogDetails;
+  const increaseQty = (title) => {
+    setQuantities((p) => ({ ...p, [title]: (p[title] || 0) + 1 }));
+    setCartCount((c) => c + 1);
+  };
+
+  const decreaseQty = (title) => {
+    setQuantities((p) => {
+      const val = p[title] || 0;
+      if (val > 0) setCartCount((c) => Math.max(0, c - 1));
+      return { ...p, [title]: Math.max(0, val - 1) };
+    });
+  };
+
+  return (
+    <main className="carousel-section">
+      <h1 className="carousel-title">Explore Our Book Collection</h1>
+
+      <div className="carousel-container" ref={carouselRef}>
+        {filteredBooks.length ? (
+          filteredBooks.map((book) => (
+            <div className="carousel-card" key={book.title}>
+              <img src={book.img} alt={book.title} />
+              <h2>{book.title}</h2>
+              <p>by {book.author}</p>
+              <p>₹ {book.price}</p>
+
+              <div>
+                <button onClick={() => decreaseQty(book.title)}>-</button>
+                <span>{quantities[book.title] || 0}</span>
+                <button onClick={() => increaseQty(book.title)}>+</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No books found</p>
+        )}
+      </div>
+    </main>
+  );
+}
+
+export default Blogdetails;

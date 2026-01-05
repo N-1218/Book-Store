@@ -1,27 +1,28 @@
-import React, { useState } from "react";
-import './index.css';
-import './main.jsx';
-import Navbar from "./Components/Navbar.jsx";
-import Home from "./Components/Home.jsx";
-import BlogDetails from "./Components/Blogdetails.jsx";
-import About from "./Components/About.jsx";
-import RegistrationPage from "./Components/Registrationpage.jsx";
-import Footer from "./Components/Footer.jsx";
-import Contact from "./Components/Contact.jsx";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  const [cartCount, setCartCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
+import Navbar from './Components/Navbar.jsx';
+import Home from './Components/Home.jsx';
+import Blogdetails from './Components/Blogdetails.jsx';
+import Footer from './Components/Footer.jsx';
+import RegistrationPage from './Components/Registrationpage.jsx';
+import LoginPage from './Components/LoginPage.jsx';
+import Contact from './Components/Contact.jsx';
+import About from './Components/About.jsx';
 
+export default function App() {
   return (
     <>
-      <Navbar cartCount={cartCount} setSearchTerm={setSearchTerm} />
-      <BlogDetails />
-      <Home setCartCount={setCartCount} searchTerm={searchTerm} />
-      <About />
+      <Navbar />
+      <Routes>
+         <Route path="/" element={<Home />} />
+        <Route path="/Blogdetails" element={<Blogdetails />} />
+        <Route path="/About" element={<About/>}/>
+        <Route path="/registrationpage" element={<RegistrationPage />} />
+        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+
       <Footer />
     </>
   );
 }
-
-export default App;

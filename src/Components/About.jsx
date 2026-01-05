@@ -1,6 +1,7 @@
 import React from "react";
 import { FaTruck, FaStar, FaUsers, FaLightbulb, FaSyncAlt } from "react-icons/fa";
 import Navbar from "./Navbar";
+import { assets } from "../assets/assets";
 
 function About() {
   return (

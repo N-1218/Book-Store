@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- import useNavigate
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { FaTruck, FaStar, FaUsers, FaLightbulb, FaSyncAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets";
+
+
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -11,43 +13,52 @@ function Contact() {
     message: "",
   });
 
-  const navigate = useNavigate(); // <-- initialize navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // For demo, just alert
-    alert(`Thank you, ${formData.name}! Your message has been sent.`);
-    
-    // Clear form
-    setFormData({ name: "", email: "", subject: "", message: "" });
 
-    // Redirect to main page
-    navigate("/App.jsx"); 
+    alert(`Thank you, ${formData.name}! Your message has been sent.`);
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+
+    // ✅ Redirect to HOME route
+    navigate("/");
   };
 
   return (
     <>
-      <Navbar />
+    <Navbar/>
       <div className="container my-5">
-        <h2 className="text-center text-primary mb-4">Contact Us</h2>
+        <h2 className="text-center text-primary mb-3">Contact Us</h2>
+
         <p className="text-center text-muted mb-5">
-          We’d love to hear from you! Fill out the form below and we’ll get back to you shortly.
+          We’d love to hear from you! Fill out the form below and we’ll get back
+          to you shortly.
         </p>
 
         <form
           onSubmit={handleSubmit}
+          className="mx-auto"
           style={{
             maxWidth: "600px",
-            margin: "0 auto",
             background: "#f8f9fa",
             padding: "30px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            borderRadius: "12px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
           }}
         >
           <div className="mb-3">
@@ -86,7 +97,7 @@ function Contact() {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-4">
             <textarea
               name="message"
               placeholder="Your Message"
@@ -95,19 +106,20 @@ function Contact() {
               className="form-control"
               rows="5"
               required
-            ></textarea>
+            />
           </div>
 
           <button
             type="submit"
-            className="btn btn-primary w-100"
+            className="btn btn-primary w-100 py-2"
             style={{ fontWeight: "600" }}
           >
             Send Message
           </button>
         </form>
       </div>
-      <Footer />
+
+      <Footer/>
     </>
   );
 }

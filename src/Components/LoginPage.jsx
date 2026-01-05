@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { assets } from "../assets/assets";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 🧠 Get registered user data from localStorage
+    
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (!storedUser) {
@@ -26,13 +27,12 @@ function LoginPage() {
       return;
     }
 
-    // ✅ Validate email & password
     if (
       loginData.email === storedUser.email &&
       loginData.password === storedUser.password
     ) {
       alert(`Successful Login ✅ Welcome back, ${storedUser.firstName}!`);
-      navigate("/"); // 👉 Redirect to App.jsx main page
+      navigate("/");
     } else {
       alert("❌ Invalid Email or Password!");
     }
