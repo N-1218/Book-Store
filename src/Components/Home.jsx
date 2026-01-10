@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import Blogdetails from "./Blogdetails";
+import Blogdetails from "./Blog";
 
 function Home() {
   return (
@@ -58,7 +58,7 @@ function Home() {
     </main>
    
   );
-   <Blogdetails/>
+  
 }
 
 export default Home;

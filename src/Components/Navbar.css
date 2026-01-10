@@ -1,0 +1,296 @@
+/* ================= NAVBAR ================= */
+.nav-bar {
+  width: 100%;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap; /* 🔥 always one line */
+
+  padding: 10px 16px;
+  background: rgba(248, 249, 250, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Prevent children from wrapping */
+.nav-bar > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+
+/* ================= SEARCH ================= */
+.nav-bar input[type="text"] {
+  width: 220px;
+  min-width: 120px;        /* 🔥 shrink limit */
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid #dee2e6;
+  transition: 0.3s ease;
+}
+
+.nav-bar input[type="text"]:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.25);
+}
+
+/* Right section spacing */
+.nav-right {
+  margin-right: 20px; /* 👈 pulls icons slightly left */
+}
+
+
+/* ================= LOGO ================= */
+.nav-bar img {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-bar h4 {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+/* ================= LINKS ================= */
+.nav-bar a {
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.nav-bar a:hover {
+  color: #0d6efd !important;
+}
+
+/* ================= ICONS ================= */
+.material-icons {
+  font-size: 26px;
+  color: #212529;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.material-icons:hover {
+  transform: scale(1.2);
+}
+
+/* ================= CART BADGE ================= */
+.nav-bar span {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+/* ================= RESPONSIVE MAGIC ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .nav-bar input[type="text"] {
+    width: 170px;
+  }
+
+  .nav-bar h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-bar input[type="text"] {
+    width: 120px;
+  }
+
+  .nav-bar h4 {
+    font-size: 1.1rem;
+  }
+
+  /* Hide "Contact Us" text but keep layout */
+  .nav-bar a[href="/contact"] {
+    display: none;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .nav-bar input[type="text"] {
+    width: 90px;
+  }
+
+  .material-icons {
+    font-size: 22px;
+  }
+}
+/* ================= NAVBAR ================= */
+.nav-bar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap; /* 🔥 always one line */
+
+  padding: 10px 16px;
+  background: rgba(248, 249, 250, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Prevent children from wrapping */
+.nav-bar > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+
+/* ================= SEARCH ================= */
+.nav-bar input[type="text"] {
+  width: 220px;
+  min-width: 120px;        /* 🔥 shrink limit */
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid #dee2e6;
+  transition: 0.3s ease;
+}
+
+.nav-bar input[type="text"]:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.25);
+}
+
+/* ================= LOGO ================= */
+.nav-bar img {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-bar h4 {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+/* ================= LINKS ================= */
+.nav-bar a {
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.nav-bar a:hover {
+  color: #0d6efd !important;
+}
+
+/* ================= ICONS ================= */
+.material-icons {
+  font-size: 26px;
+  color: #212529;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.material-icons:hover {
+  transform: scale(1.2);
+}
+
+/* ================= CART BADGE ================= */
+.nav-bar span {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+/* ================= RESPONSIVE MAGIC ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .nav-bar input[type="text"] {
+    width: 170px;
+  }
+
+  .nav-bar h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-bar input[type="text"] {
+    width: 120px;
+  }
+
+  .nav-bar h4 {
+    font-size: 1.1rem;
+  }
+
+  /* Hide "Contact Us" text but keep layout */
+  .nav-bar a[href="/contact"] {
+    display: none;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .nav-bar input[type="text"] {
+    width: 90px;
+  }
+
+  .material-icons {
+    font-size: 22px;
+  }
+}
+
+.account-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.account-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.account-menu {
+  position: absolute;
+  top: calc(100% + 8px); /* 🔥 FIXED */
+  right: 0;
+  min-width: 160px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 9999;
+}
+
+.account-menu li {
+  list-style: none;
+}
+
+.account-menu a {
+  display: block;
+  padding: 10px 16px;
+  color: #212529;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.25s ease;
+}
+
+.account-menu a:hover {
+  background: rgba(13, 110, 253, 0.12);
+  color: #0d6efd;
+}

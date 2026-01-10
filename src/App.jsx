@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from './Components/Navbar.jsx';
 import Home from './Components/Home.jsx';
-import Blogdetails from './Components/Blogdetails.jsx';
+import Blog from './Components/Blog.jsx';
 import Footer from './Components/Footer.jsx';
 import RegistrationPage from './Components/Registrationpage.jsx';
 import LoginPage from './Components/LoginPage.jsx';
@@ -22,7 +22,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes> */}
       <Home/>
-         <Blogdetails/>
+         <Blog/>
             <About/>
                <Contact/>
 

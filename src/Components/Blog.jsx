@@ -1,51 +1,70 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { assets } from "../assets/assets";
+import "./Blog.css";
 
-const Blog = () => {
-  const post = [
-    {
-      img: "https://res.cloudinary.com/practicaldev/image/fetch/s--AuZFJnr6--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a8okx5rxzuh5fojibsy3.png",
-      title: "How to build a counter app with JavaScript",
-      url: "https://dev.to/coderamrin/how-to-build-a-counter-app-with-javascript-439p",
-    },
-    {
-      img: "https://res.cloudinary.com/practicaldev/image/fetch/s--FsJZ6lhI--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gv7y2de8kalk9l0820ag.jpg",
-      title: "JavaScript Ultimate Guide 02: The DOM",
-      url: "https://dev.to/coderamrin/javascript-ultimate-guide-02-the-dom-3ho9",
-    },
+function Blog({ setCartCount = () => {}, searchTerm = "" }) {
+  const carouselRef = useRef(null);
+  const [quantities, setQuantities] = useState({});
+
+  const books = [
+    { img: assets.history, title: "History", author: "Jojo Moyes", price: 340 },
+    { img: assets.Mystery, title: "Mystery", author: "Elizabeth Gilbert", price: 450 },
+    { img: assets.Fantasy, title: "Fantasy", author: "Ruth Ozeki", price: 175 },
+    { img: assets.Romance, title: "Romance Novel", author: "F. Scott Fitzgerald", price: 665 },
+    { img: assets.Comic, title: "Comics", author: "Stan Lee", price: 520 },
+    { img: assets.Thriller, title: "Thriller", author: "James Patterson", price: 375 },
+    { img: assets.Children, title: "Children's Books", author: "J.K. Rowling", price: 299 },
+    { img: assets.Drama, title: "Drama", author: "Elizabeth Gilbert", price: 310 },
   ];
 
-  return (
-    <section className="bg-primary text-white px-5 py-32" id="blog">
-      <div className="container mx-auto grid md:grid-cols-2 items-center md:justify-between">
-        <div className="about-info mb-5">
-          <h2 className="text-4xl font-bold mb-5 border-b-[5px] w-[100px] border-indigo-600 pb-2">
-            Blogs
-          </h2>
-
-          <p className="pb-5">Some of my best blogs.</p>
-        </div>
-
-        <div></div>
-      </div>
-
-      <div className="projects container mx-auto grid md:grid-cols-2 gap-10">
-        {post.map((item) => {
-          return (
-            <div>
-              <img src={item.img} alt={item.title} />
-              <h3 className="py-5 text-2xl">{item.title}</h3>
-              <a
-                href={item.url}
-                className=" btn bg-accent  border-2 border-[#7477FF] text-white px-6 py-3 hover:bg-transparent"
-              >
-                Read More
-              </a>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+  // Filter books by search term
+  const filteredBooks = books.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
-};
+
+  // Increase quantity
+  const increaseQty = (title) => {
+    setQuantities((prev) => ({ ...prev, [title]: (prev[title] || 0) + 1 }));
+    setCartCount((count) => count + 1);
+  };
+
+  // Decrease quantity
+  const decreaseQty = (title) => {
+    setQuantities((prev) => {
+      const val = prev[title] || 0;
+      if (val > 0) setCartCount((count) => Math.max(0, count - 1));
+      return { ...prev, [title]: Math.max(0, val - 1) };
+    });
+  };
+
+  return (
+    <main className="carousel-section">
+      <h1 className="carousel-title">Explore Our Book Collection</h1>
+
+      {filteredBooks.length > 0 ? (
+        <div className="carousel-container" ref={carouselRef}>
+          {filteredBooks.map((book) => (
+            <div className="carousel-card" key={book.title}>
+              <img src={book.img} alt={book.title} />
+              <h2>{book.title}</h2>
+              <p className="author">by {book.author}</p>
+              <p className="price">₹ {book.price}</p>
+
+              <div className="quantity-controls">
+                <button onClick={() => decreaseQty(book.title)}>-</button>
+                <span>{quantities[book.title] || 0}</span>
+                <button onClick={() => increaseQty(book.title)}>+</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="no-books">No books found</p>
+      )}
+    </main>
+  );
+}
 
 export default Blog;

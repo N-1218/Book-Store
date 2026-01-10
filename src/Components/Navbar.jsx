@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { assets } from "../assets/assets";
+import "./Navbar.css";
 
 function Navbar({ cartCount = 0, setSearchTerm }) {
-  // 🔍 Handle search input
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // 🔍 Handle search
   const handleSearch = (e) => {
     if (setSearchTerm) {
       setSearchTerm(e.target.value.toLowerCase());
     }
   };
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <nav className="nav-bar d-flex justify-content-between align-items-center px-4 py-2 shadow-sm bg-light">
-      {/* Left Section */}
+      
+      {/* Left: Search */}
       <div className="d-flex align-items-center gap-3">
-        {/* 🔍 Search Input */}
         <input
           type="text"
           placeholder="Search Book..."
@@ -24,7 +40,7 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
         />
       </div>
 
-      {/* Logo */}
+      {/* Center: Logo */}
       <div className="d-flex align-items-center gap-2">
         <img
           src={assets.Logo}
@@ -40,71 +56,46 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
       </div>
 
       {/* Right Section */}
-      <div className="d-flex align-items-center gap-4">
+      <div className="d-flex align-items-center gap-4 nav-right ">
         <Link
-            to="/contact"
-            className="text-dark fw-semibold text-decoration-none">
-            Contact Us
+          to="/contact"
+          className="text-dark fw-semibold text-decoration-none"
+        >
+          Contact Us
         </Link>
 
-
-        {/* 🛒 Cart Icon */}
-        <div
-          className="position-relative"
-          title="Cart"
-          style={{ cursor: "pointer" }}
-        >
-          <i className="material-icons" style={{ fontSize: "26px" }}>
-            shopping_cart
-          </i>
+        {/* 🛒 Cart */}
+        <div className="position-relative">
+          <FaShoppingCart className="material-icons" />
           {cartCount > 0 && (
-            <span
-              style={{
-                position: "absolute",
-                top: "-6px",
-                right: "-10px",
-                background: "red",
-                color: "white",
-                borderRadius: "50%",
-                padding: "2px 6px",
-                fontSize: "11px",
-                fontWeight: "bold",
-              }}
-            >
-              {cartCount}
-            </span>
+            <span className="cart-badge">{cartCount}</span>
           )}
         </div>
 
-        {/* 👤 Account Dropdown */}
-        <div className="dropdown">
-          <Link
-            className="nav-link dropdown-toggle text-dark"
-            to="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+        {/* 👤 Account Dropdown (Merged) */}
+        <div className="account-dropdown" ref={dropdownRef}>
+          <button
+            className="account-btn"
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
           >
-            <i className="material-icons" style={{ fontSize: "28px" }}>
-              account_circle
-            </i>
-          </Link>
-          <ul
-            className="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <Link className="dropdown-item" to="/registrationpage">
-                Registration
-              </Link>
-            </li>
-            <li>
-              <Link className="dropdown-item" to="/loginpage">
-                Login
-              </Link>
-            </li>
-          </ul>
+            <FaUser className="material-icons" />
+          </button>
+
+          {open && (
+            <ul className="account-menu">
+              <li>
+                <Link to="/registrationpage" onClick={() => setOpen(false)}>
+                  Registration
+                </Link>
+              </li>
+              <li>
+                <Link to="/loginpage" onClick={() => setOpen(false)}>
+                  Login
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </nav>

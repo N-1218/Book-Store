@@ -43,7 +43,7 @@ function Contact() {
 
   return (
     <>
-    <Navbar/>
+    
       <div className="container my-5">
         <h2 className="text-center text-primary mb-3">Contact Us</h2>
 
@@ -121,7 +121,7 @@ function Contact() {
         </form>
       </div>
 
-      <Footer/>
+    
     </>
   );
 }
