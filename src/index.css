@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ---------- GLOBAL RESET ---------- */
 
 
@@ -1384,34 +1383,4 @@ form button:hover {
     .container h2 {
         font-size: 1.5rem;
     }
-=======
-/* color */
-.bg-primary {
-    background: #0F172A;
-}
-
-.bg-secondery {
-    background: #1E293B;
-}
-
-.bg-accent {
-    background: #7477FF;
-}
-
-.text-accent {
-    color: #7477FF;
-} .mobile-nav {
-    @apply block md:hidden fixed top-10 py-2 w-full h-full bg-gray-900 duration-500;
-}
-nav li a {
-    @apply px-4 py-5 text-lg;
-}
-
-nav li a:hover {
-    color: #7477FF;
-}
-h1 {
-    font-family: 'Pacifico', cursive;
-    line-height: 1.5 !important;
->>>>>>> 69952499ab6155c0a3bd356a14ed86b3feb3b924
 }
