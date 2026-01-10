@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import Blogdetails from "./Blog";
+import './Home.css';
 
 function Home() {
   return (

@@ -1,0 +1,188 @@
+*---------Registration Form CSS-------------------------------*/
+
+/* ===== Registration Page Background ===== */
+.registration-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    background-attachment: fixed;
+    animation: bgSlide 10s infinite alternate ease-in-out;
+}
+
+/* Subtle animated background shift */
+@keyframes bgSlide {
+    0% {
+        background-position: left top;
+    }
+
+    100% {
+        background-position: right bottom;
+    }
+}
+
+/* ===== Card ===== */
+.registration-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    max-width: 90%;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.registration-card h2 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #334eac;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* ===== Form Fields ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #5a6efc;
+    box-shadow: 0 0 8px rgba(90, 110, 252, 0.3);
+    transform: scale(1.02);
+}
+
+/* ===== Checkbox ===== */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* ===== Button ===== */
+.signup-btn {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #5a6efc, #334eac);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.5px;
+}
+
+.signup-btn:hover {
+    background: transparent;
+    box-shadow: 0 0 15px rgba(90, 110, 252, 0.4);
+    transform: translateY(-2px);
+    color: #334eac;
+}
+
+/* ===== Social Section ===== */
+.social-login {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.social-login p {
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons span {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-icons span:hover {
+    transform: scale(1.2);
+    background: linear-gradient(135deg, #5a6efc, #334eac);
+    color: white;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .registration-card {
+        padding: 30px 25px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    .signup-btn {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-card {
+        width: 90%;
+        border-radius: 15px;
+    }
+
+    .social-icons span {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .registration-card h2 {
+        font-size: 1.5rem;
+    }
+}

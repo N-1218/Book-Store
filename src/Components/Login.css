@@ -1,0 +1,177 @@
+
+/*--------Login Page CSS ---------------------*/
+/* 🌈 Background */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 🌟 Floating glow animation background */
+.login-container::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #8ba7ff50, transparent 70%);
+    top: 10%;
+    left: 20%;
+    animation: floatGlow 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes floatGlow {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        transform: translateY(30px) scale(1.1);
+    }
+}
+
+/* 🧊 Card */
+.login-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 18px;
+    width: 350px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(51, 78, 172, 0.25);
+    z-index: 1;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-card h2 {
+    color: #2a3b8f;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.login-card p {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+/* 🎯 Inputs */
+.login-card input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #a1a8d1;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.5);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: #334eac;
+    box-shadow: 0 0 8px rgba(51, 78, 172, 0.4);
+    background: #fff;
+}
+
+/* 🪄 Button with glow */
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #334eac, #5068ff);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(51, 78, 172, 0.3);
+}
+
+.signup-btn:hover {
+    background: linear-gradient(135deg, #253d91, #4050e0);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(51, 78, 172, 0.5);
+}
+
+/* 🔗 Link section */
+.link-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.link {
+    color: #334eac;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    text-decoration: underline;
+    color: #253d91;
+}
+
+/* 📱 Responsive Styles */
+@media (max-width: 768px) {
+    .login-card {
+        width: 85%;
+        padding: 30px 25px;
+    }
+
+    .login-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-card input {
+        font-size: 0.9rem;
+    }
+
+    .signup-btn {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        width: 90%;
+        padding: 25px 20px;
+        border-radius: 12px;
+    }
+
+    .login-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .login-card p {
+        font-size: 0.85rem;
+    }
+
+    .signup-btn {
+        font-size: 0.9rem;
+    }
+}
+

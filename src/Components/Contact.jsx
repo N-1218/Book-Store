@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { FaTruck, FaStar, FaUsers, FaLightbulb, FaSyncAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import './Contact.css';
 
 
 function Contact() {
