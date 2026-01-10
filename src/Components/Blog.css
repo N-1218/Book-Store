@@ -16,10 +16,17 @@
 
 /* ================= CAROUSEL CONTAINER ================= */
 .carousel-container {
+   background:
+    linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 242, 241, 0.9)),
+    url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
+  
   padding-bottom: 10px;
 }
 

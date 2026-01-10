@@ -1,7 +1,14 @@
 /* ================= CONTACT PAGE LAYOUT ================= */
 .container {
   font-family: "Poppins", sans-serif;
-  padding: 40px 16px;
+  color: #222;
+  padding: 100px 5%;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 242, 241, 0.9)),
+    url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* Heading */
@@ -11,6 +18,11 @@
   letter-spacing: 0.5px;
   color: #0d6efd;
   justify-content: center;
+}
+/* Center heading & subtitle */
+.container h2,
+.container p {
+  text-align: center;
 }
 
 /* Subtitle */
@@ -26,7 +38,7 @@
 form {
   max-width: 600px;
   margin: auto;
-  background: linear-gradient(145deg, #ffffff, #f3f4f6);
+  background:transparent;
   padding: 36px;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
