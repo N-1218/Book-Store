@@ -1,11 +1,11 @@
 import React from "react";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 import './Home.css';
 
 function Home() {
   return (
     
-    <main className="home-container">
+    <main className="home-container page-background">
       {/* Header */}
       <header className="home-header">
         <h1 className="home-title">

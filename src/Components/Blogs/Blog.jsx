@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 import "./Blog.css";
-
+//carauasal
 function Blog({ setCartCount = () => {}, searchTerm = "" }) {
   const carouselRef = useRef(null);
   const [quantities, setQuantities] = useState({});
@@ -40,7 +40,34 @@ function Blog({ setCartCount = () => {}, searchTerm = "" }) {
   };
 
   return (
-    <main className="carousel-section">
+    <main className="carousel-section page-background">
+      <h1 className="carousel-title">Explore Our Book Collection</h1>
+
+      {filteredBooks.length > 0 ? (
+        <div className="carousel-container" ref={carouselRef}>
+          {filteredBooks.map((book) => (
+            <div className="carousel-card" key={book.title}>
+              <img src={book.img} alt={book.title} />
+              <h2>{book.title}</h2>
+              <p className="author">by {book.author}</p>
+              <p className="price">₹ {book.price}</p>
+
+              <div className="quantity-controls">
+                <button onClick={() => decreaseQty(book.title)}>-</button>
+                <span>{quantities[book.title] || 0}</span>
+                <button onClick={() => increaseQty(book.title)}>+</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="no-books">No books found</p>
+      )}
+    </main>
+
+
+
+<main className="carousel-section page-background">
       <h1 className="carousel-title">Explore Our Book Collection</h1>
 
       {filteredBooks.length > 0 ? (

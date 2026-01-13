@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 import "./Navbar.css";
 
 function Navbar({ cartCount = 0, setSearchTerm }) {

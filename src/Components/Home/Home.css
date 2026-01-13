@@ -1,4 +1,23 @@
+/* ===============================
+   HOME PAGE BACKGROUND
+================================ */
+.home-container {
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.88),
+      rgba(240, 242, 255, 0.92)
+    ),
+    url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80");
 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ===============================
+   Header Section
+================================ */
 .home-header {
   background: linear-gradient(135deg, #e4451b, #ff6a3d);
   color: #fff;
@@ -47,7 +66,10 @@
   color: #333;
   padding: 25px;
   text-align: justify;
+
   background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+
   border-radius: 20px;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   animation: slideInRight 1.2s ease-in-out 0.5s both;
@@ -149,5 +171,3 @@
     font-size: 15px;
   }
 }
-
-

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FaTruck, FaStar, FaUsers, FaLightbulb, FaSyncAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 import './Contact.css';
 
 
@@ -43,7 +43,7 @@ function Contact() {
   return (
     <>
     
-      <div className="container my-5">
+      <div className="container my-5 page-background">
         <h2 className="text-center text-primary mb-3">Contact Us</h2>
 
         <p className="text-center text-muted mb-5">

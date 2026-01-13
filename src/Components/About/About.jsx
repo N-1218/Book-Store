@@ -1,14 +1,15 @@
 import React from "react";
 import { FaTruck, FaStar, FaUsers, FaLightbulb, FaSyncAlt } from "react-icons/fa";
-import Navbar from "./Navbar";
-import { assets } from "../assets/assets";
-import './About.css';
+import Navbar from "../Navbar/Navbar";
+import { assets } from "../../assets/assets";
+import "./About.css";
 
 function About() {
   return (
-    <main className="main">
+    
+    <main className="main page-background">
         <h1 className="carousel-title">Discover Our Journey</h1>
-    <div className="features">
+    <div className="features page-background">
       <div className="feature">
         <FaTruck className="icon" />
         <p>4–5 Days Express Delivery</p>
