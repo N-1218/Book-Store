@@ -85,12 +85,12 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
           {open && (
             <ul className="account-menu">
               <li>
-                <Link to="/registrationpage" onClick={() => setOpen(false)}>
+                <Link to="/Registrationpage" onClick={() => setOpen(false)}>
                   Registration
                 </Link>
               </li>
               <li>
-                <Link to="/loginpage" onClick={() => setOpen(false)}>
+                <Link to="/LoginPage" onClick={() => setOpen(false)}>
                   Login
                 </Link>
               </li>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import './Registration.css';
 
-function RegistrationPage() {
+function Registrationpage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -94,4 +94,4 @@ function RegistrationPage() {
   );
 }
 
-export default RegistrationPage;
+export default Registrationpage;
