@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 
-import Navbar from './Components/Navbar.jsx';
-import Home from './Components/Home.jsx';
-import Blog from './Components/Blog.jsx';
-import Footer from './Components/Footer.jsx';
-import RegistrationPage from './Components/Registrationpage.jsx';
-import LoginPage from './Components/LoginPage.jsx';
-import Contact from './Components/Contact.jsx';
-import About from './Components/About.jsx';
+import Navbar from './Components/Navbar/Navbar.jsx';
+import Home from './Components/Home/Home.jsx';
+import Blog from './Components/Blogs/Blog.jsx'
+import Footer from './Components/Footer/Footer.jsx';
+import RegistrationPage from './Components/Registration/Registrationpage.jsx';
+import LoginPage from './Components/LoginPage/LoginPage.jsx';
+import Contact from './Components/Contacts/Contact.jsx';
+import About from './Components/About/About.jsx'
 
 export default function App() {
   return (
