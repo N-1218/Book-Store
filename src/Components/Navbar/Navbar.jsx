@@ -58,45 +58,48 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
       {/* Right Section */}
       <div className="d-flex align-items-center gap-4 nav-right ">
         <Link
-          to="/contact"
+          to="/Contact"
           className="text-dark fw-semibold text-decoration-none"
         >
           Contact Us
         </Link>
 
         {/* 🛒 Cart */}
-        <div className="position-relative">
-          <FaShoppingCart className="material-icons" />
-          {cartCount > 0 && (
-            <span className="cart-badge">{cartCount}</span>
-          )}
-        </div>
+       <div className="position-relative">
+  <FaShoppingCart className="material-icons" />
+  {cartCount > 0 && (
+    <span className="cart-badge">{cartCount}</span>
+  )}
+</div>
+
 
         {/* 👤 Account Dropdown (Merged) */}
-        <div className="account-dropdown" ref={dropdownRef}>
-          <button
-            className="account-btn"
-            onClick={() => setOpen(!open)}
-            aria-expanded={open}
-          >
-            <FaUser className="material-icons" />
-          </button>
+       {/* 👤 Account Dropdown */}
+<div className="account-dropdown" ref={dropdownRef}>
+  <button
+    className="account-btn"
+    onClick={() => setOpen(!open)}
+    aria-expanded={open}
+  >
+    <FaUser className="material-icons" />
+  </button>
 
-          {open && (
-            <ul className="account-menu">
-              <li>
-                <Link to="/Registrationpage" onClick={() => setOpen(false)}>
-                  Registration
-                </Link>
-              </li>
-              <li>
-                <Link to="/LoginPage" onClick={() => setOpen(false)}>
-                  Login
-                </Link>
-              </li>
-            </ul>
-          )}
-        </div>
+  {open && (
+    <ul className="account-menu">
+      <li>
+        <Link to="/RegistrationPage" onClick={() => setOpen(false)}>
+          Registration
+        </Link>
+      </li>
+      <li>
+        <Link to="/LoginPage" onClick={() => setOpen(false)}>
+          Login
+        </Link>
+      </li>
+    </ul>
+  )}
+</div>
+
       </div>
     </nav>
   );

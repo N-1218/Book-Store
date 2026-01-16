@@ -61,6 +61,8 @@
 .home-content {
   max-width: 850px;
   margin: 60px auto;
+    font-size: 1.5rem;
+  font-weight: 600;
   font-size: 17px;
   line-height: 1.8;
   color: #333;
@@ -74,6 +76,15 @@
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   animation: slideInRight 1.2s ease-in-out 0.5s both;
 }
+/* .search-results h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #222;
+   font-size: 1.2rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+} */
 
 .home-content:hover {
   transform: translateY(-5px);
@@ -169,5 +180,56 @@
   .home-content {
     padding: 20px;
     font-size: 15px;
+  }
+}
+.search-results {
+  margin-top: 40px;
+}
+
+
+
+
+
+
+
+
+.book-slider {
+  width: 100%;
+  overflow: hidden;
+  background: #f8f9fa;
+  padding: 20px 0;
+}
+
+.book-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.book-card {
+  min-width: 220px;
+  margin: 0 15px;
+  padding: 15px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.book-card:hover {
+  transform: scale(1.08);
+  background: #e3f2fd;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

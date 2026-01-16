@@ -29,12 +29,12 @@ function Registrationpage() {
     localStorage.setItem("user", JSON.stringify(formData));
 
     alert(`✅ Welcome ${formData.firstName}! Registration Successful 🎉`);
-    navigate("/loginpage"); // redirect to login
+    navigate("/LoginPage"); // redirect to login
   };
 
   return (
     <>
-      <Navbar />
+      
       <div className="registration-container">
         <div className="registration-card">
           <h2>Create Your Account</h2>

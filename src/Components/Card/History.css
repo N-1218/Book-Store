@@ -1,0 +1,177 @@
+/* ===============================
+   HISTORY PAGE
+================================ */
+.history-page {
+  padding: 60px 30px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, #f8f9ff);
+}
+
+/* ===============================
+   PAGE TITLE
+================================ */
+.history-title {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  font-weight: 800;
+  color: #334eac;
+  margin-bottom: 45px;
+}
+
+/* ===============================
+   GRID LAYOUT
+================================ */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(16px, 3vw, 30px);
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===============================
+   BOOK CARD
+================================ */
+.history-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: clamp(16px, 3vw, 22px);
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(51, 78, 172, 0.15);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(51, 78, 172, 0.25);
+}
+
+/* ===============================
+   BOOK IMAGE
+================================ */
+.history-card img {
+  width: 100%;
+  height: clamp(140px, 30vw, 180px);
+  object-fit: contain;
+  margin-bottom: 14px;
+  transition: transform 0.4s ease;
+}
+
+.history-card:hover img {
+  transform: scale(1.06);
+}
+
+/* ===============================
+   BOOK TITLE
+================================ */
+.history-card h2 {
+  font-size: clamp(1rem, 2.8vw, 1.15rem);
+  font-weight: 700;
+  color: #2a3b8f;
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   PRICE
+================================ */
+.price {
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #decabd, #c66c0c)
+}
+
+/* ===============================
+   QUANTITY CONTROLS
+================================ */
+.qty-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.qty-controls button {
+  width: clamp(32px, 7vw, 38px);
+  height: clamp(32px, 7vw, 38px);
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #926747, #c66c0c);
+  color: #fff;
+  font-size: clamp(1.1rem, 4vw, 1.3rem);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.qty-controls button:hover {
+  background: linear-gradient(135deg, #664730, #c66c0c);
+  transform: scale(1.1);
+}
+
+.qty-controls span {
+  font-size: clamp(0.95rem, 3vw, 1.05rem);
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* ===============================
+   TOTAL PRICE
+================================ */
+.total {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: #222;
+  margin-top: 4px;
+}
+
+/* ===============================
+   NO BOOKS FOUND
+================================ */
+.no-books {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+  grid-column: 1 / -1;
+}
+
+/* ===============================
+   MOBILE (≤ 480px)
+================================ */
+@media (max-width: 480px) {
+  .history-page {
+    padding: 40px 14px;
+  }
+
+  .history-grid {
+    gap: 18px;
+  }
+
+  .history-card {
+    border-radius: 14px;
+  }
+}
+
+/* ===============================
+   TABLET (481px – 768px)
+================================ */
+@media (min-width: 481px) and (max-width: 768px) {
+  .history-page {
+    padding: 50px 22px;
+  }
+
+  .history-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===============================
+   SMALL LAPTOP (769px – 1024px)
+================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .history-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
