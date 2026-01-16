@@ -174,7 +174,7 @@
   }
 }
 .search-results {
-  margin-top: 40px;
+  margin-top: 200px;
 }
 
 
@@ -211,12 +211,11 @@
   transition: transform 0.3s;
 }
 .search-results h2{
-font-size: 40px;
+font-size: 37px;
 justify-content: center;
-content: normal;
 color: #212529;
-  position: relative;
-  z-index: 1;
+text-align: center;
+
 }
 
 .book-card:hover {
