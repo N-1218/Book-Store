@@ -61,7 +61,7 @@
 .home-content {
   max-width: 850px;
   margin: 60px auto;
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   font-weight: 600;
   font-size: 17px;
   line-height: 1.8;
@@ -76,15 +76,6 @@
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   animation: slideInRight 1.2s ease-in-out 0.5s both;
 }
-/* .search-results h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #222;
-   font-size: 1.2rem;
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-} */
 
 .home-content:hover {
   transform: translateY(-5px);
