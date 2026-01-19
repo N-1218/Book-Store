@@ -1,31 +1,51 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
-import Navbar from './Components/Navbar/Navbar.jsx';
-import Home from './Components/Home/Home.jsx';
-import Blog from './Components/Blogs/Blog.jsx'
-import Footer from './Components/Footer/Footer.jsx';
-import RegistrationPage from './Components/Registration/Registrationpage.jsx';
-import LoginPage from './Components/LoginPage/LoginPage.jsx';
-import Contact from './Components/Contacts/Contact.jsx';
-import About from './Components/About/About.jsx'
+import Navbar from "./Components/Navbar/Navbar";
+import Home from "./Components/Home/Home";
+import Blog from "./Components/Blogs/Blog";
+import Footer from "./Components/Footer/Footer";
+import RegistrationPage from "./Components/Registration/Registrationpage";
+import LoginPage from "./Components/LoginPage/LoginPage";
+import Contact from "./Components/Contacts/Contact";
+import About from "./Components/About/About";
+import History from "./Components/Card/History";
 
 export default function App() {
+  const [cartCount, setCartCount] = useState(0);
+
   return (
     <>
-      <Navbar />
-      {/* <Routes>
-        <Route path="/" element={<Blogdetails />} />
-        <Route path="/Blogdetails" element={<Home />} />
-        <Route path="/About" element={<About/>}/>
+      {/* 🛒 Cart Count passed to Navbar */}
+      <Navbar cartCount={cartCount} />
+
+      <Routes>
+        {/* Home Page */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Home />
+              <Blog />
+              <About />
+              <Contact />
+            </>
+          }
+        />
+
+        {/* Category Pages */}
+        <Route
+          path="/category/:category"
+          element={<History setCartCount={setCartCount} />}
+        />
+
+        {/* Auth Pages */}
         <Route path="/registrationpage" element={<RegistrationPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes> */}
-      <Home/>
-         <Blog/>
-            <About/>
-               <Contact/>
 
+        {/* 404 */}
+        <Route path="*" element={<h2 style={{ textAlign: "center" }}>Page Not Found</h2>} />
+      </Routes>
 
       <Footer />
     </>
