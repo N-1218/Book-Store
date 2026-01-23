@@ -8,6 +8,10 @@ import Comic from "../assets/comic.jpg"
 import Thriller from"../assets/thriller.jpg"
 import Children from "../assets/childern.jpg"
 import Drama from "../assets/drama.jpg"
+import Java from "../assets/JavaProgram.jpg"
+import React from "../assets/React.jpg"
+import Springboot from "../assets/Springboot.jpg"
+import JS from "../assets/jsc.jpg"
 
 
 export const assets={
@@ -21,5 +25,9 @@ export const assets={
     Comic,
     Thriller,
     Children,
-    Drama
+    Drama,
+    Java ,
+    React,
+    Springboot,
+    JS
 };

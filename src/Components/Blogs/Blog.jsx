@@ -17,10 +17,10 @@ function Blog({ searchTerm = "" }) {
   ];
 
   const programmingBooks = [
-    { img: assets.Fantasy, title: "Java Programming" },
-    { img: assets.Romance, title: "React for Beginners" },
-    { img: assets.Thriller, title: "Spring Boot Guide" },
-    { img: assets.Children, title: "JavaScript Mastery" },
+    { img: assets.Java, title: "Java Programming" },
+    { img: assets.React, title: "React for Beginners" },
+    { img: assets.Springboot, title: "Spring Boot Guide" },
+    { img: assets.JS, title: "JavaScript Mastery" },
     { img: assets.Comic, title: "Data Structures in Java" },
     { img: assets.history, title: "SQL for Beginners" },
     { img: assets.Mystery, title: "Data Analytics" },
