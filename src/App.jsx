@@ -13,11 +13,15 @@ import History from "./Components/Card/History";
 
 export default function App() {
   const [cartCount, setCartCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState(""); // ✅ added
 
   return (
     <>
-      {/* 🛒 Cart Count passed to Navbar */}
-      <Navbar cartCount={cartCount} />
+      {/* 🛒 Navbar */}
+      <Navbar
+        cartCount={cartCount}
+        setSearchTerm={setSearchTerm}
+      />
 
       <Routes>
         {/* Home Page */}
@@ -26,14 +30,14 @@ export default function App() {
           element={
             <>
               <Home />
-              <Blog />
+              <Blog searchTerm={searchTerm} /> {/* ✅ correct */}
               <About />
               <Contact />
             </>
           }
         />
 
-        {/* Category Pages */}
+        {/* Category Page */}
         <Route
           path="/category/:category"
           element={<History setCartCount={setCartCount} />}
@@ -41,10 +45,13 @@ export default function App() {
 
         {/* Auth Pages */}
         <Route path="/registrationpage" element={<RegistrationPage />} />
-        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/loginpage" element={<LoginPage />} />
 
         {/* 404 */}
-        <Route path="*" element={<h2 style={{ textAlign: "center" }}>Page Not Found</h2>} />
+        <Route
+          path="*"
+          element={<h2 style={{ textAlign: "center" }}>Page Not Found</h2>}
+        />
       </Routes>
 
       <Footer />

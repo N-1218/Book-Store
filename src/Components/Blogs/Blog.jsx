@@ -16,24 +16,30 @@ function Blog({ searchTerm = "" }) {
     { img: assets.Drama, title: "Drama" },
   ];
 
-  const secondBooks = [
+  const programmingBooks = [
     { img: assets.Fantasy, title: "Java Programming" },
     { img: assets.Romance, title: "React for Beginners" },
     { img: assets.Thriller, title: "Spring Boot Guide" },
     { img: assets.Children, title: "JavaScript Mastery" },
     { img: assets.Comic, title: "Data Structures in Java" },
-    { img: assets.history, title: "SQL for " },
+    { img: assets.history, title: "SQL for Beginners" },
     { img: assets.Mystery, title: "Data Analytics" },
     { img: assets.Drama, title: "Frameworks" },
   ];
 
-  // 🔍 Filter by search
-  const filterBooks = (list) =>
-    list.filter((book) =>
+  // 🔍 Search filter
+  const filterBooks = (list) => {
+    if (!searchTerm) return list;
+
+    return list.filter((book) =>
       book.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+  };
 
-  // 🔗 Convert title to URL-safe slug
+  const filteredBooks = filterBooks(books);
+  const filteredProgrammingBooks = filterBooks(programmingBooks);
+
+  // 🔗 Slug
   const createSlug = (title) =>
     title.toLowerCase().replace(/\s+/g, "-");
 
@@ -56,18 +62,18 @@ function Blog({ searchTerm = "" }) {
     <main className="carousel-section page-background">
       <h1 className="carousel-title">Explore Our Book Collection</h1>
 
-      {filterBooks(books).length ? (
-        renderCarousel(filterBooks(books))
+      {filteredBooks.length ? (
+        renderCarousel(filteredBooks)
       ) : (
         <p className="no-books">No books found</p>
       )}
 
       <h1 className="carousel-title" style={{ marginTop: "50px" }}>
-        Programing Languages Books 
+        Programming Language Books
       </h1>
 
-      {filterBooks(secondBooks).length ? (
-        renderCarousel(filterBooks(secondBooks))
+      {filteredProgrammingBooks.length ? (
+        renderCarousel(filteredProgrammingBooks)
       ) : (
         <p className="no-books">No books found</p>
       )}
