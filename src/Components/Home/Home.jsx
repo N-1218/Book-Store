@@ -58,20 +58,6 @@ function Home({ searchTerm = "" }) {
         </p>
       </section>
 
-      {/* 🔎 SEARCH RESULTS */}
-      <section className="search-results">
-        <h2>Available Books</h2>
-         {/* 📚 CONTINUOUS MOVING BOOK SLIDER */}
-      <section className="book-slider">
-        <div className="book-track">
-          {[...books, ...books].map((book, index) => (
-            <div className="book-card" key={index}>
-              {book.title}
-            </div>
-          ))}
-        </div>
-      </section>
-      </section>
 
     </main>
   );

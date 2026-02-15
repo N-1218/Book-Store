@@ -63,8 +63,11 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
       {/* Right */}
       <div className="d-flex align-items-center gap-4 nav-right">
 
-        <Link to="/Contact" className="text-dark fw-semibold text-decoration-none">
-          Contact Us
+        <Link to="/Blog" className="text-dark fw-semibold text-decoration-none">
+          Old Books
+        </Link>
+          <Link to="/Blog" className="text-dark fw-semibold text-decoration-none">
+          New Books
         </Link>
 
         {/* 🛒 Cart */}
