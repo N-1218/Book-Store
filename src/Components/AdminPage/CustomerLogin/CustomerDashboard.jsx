@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./CustomerDashboard.css";
+import "./CustomerDashBoard.css";
 
 function CustomerDashboard() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
 
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  /* ✅ Load User */
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -14,9 +17,15 @@ function CustomerDashboard() {
       return;
     }
 
-    setUser(JSON.parse(storedUser));
+    try {
+      setUser(JSON.parse(storedUser));
+    } catch {
+      localStorage.removeItem("user");
+      navigate("/loginpage");
+    }
   }, [navigate]);
 
+  /* ✅ Logout */
   const logout = () => {
     localStorage.removeItem("user");
     navigate("/loginpage");
@@ -25,66 +34,61 @@ function CustomerDashboard() {
   return (
     <div className="dashboard-container">
 
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <h2 className="logo">📚 BookStore</h2>
+      {/* ===== Sidebar ===== */}
+      <div className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
+
+        {/* Sidebar Header */}
+        <div className="sidebar-header">
+
+          {sidebarOpen && <h2 className="logo">Customer</h2>}
+
+          {/* ⭐ Arrow Toggle */}
+          <button
+            className="sidebar-toggle"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            {sidebarOpen ? "⬅" : "➡"}
+          </button>
+
+        </div>
 
         <ul className="menu">
-          <li className="active">Dashboard</li>
-          <li>Orders</li>
-          <li>Wishlist</li>
-          <li>Profile</li>
-          <li>Settings</li>
-          <li className="logout" onClick={logout}>Logout</li>
+          <li className="active">🏠 <span>Dashboard</span></li>
+          <li>🛒 <span>My Orders</span></li>
+          <li>❤️ <span>Wishlist</span></li>
+          <li>👤 <span>Profile</span></li>
+          <li>⚙ <span>Settings</span></li>
+          <li className="logout" onClick={logout}>🚪 <span>Logout</span></li>
         </ul>
-      </aside>
 
-      {/* Main Content */}
-      <main className="main-content">
+      </div>
 
-        {/* Header */}
-        <header className="dashboard-header">
-          <div>
-            <h2>Welcome, {user?.firstName || "Customer"} 👋</h2>
-            <p>Here is your dashboard overview</p>
-          </div>
+      {/* ===== Main Content ===== */}
+      <div className="main-content">
 
-          <div className="profile-circle">
-            {user?.firstName?.charAt(0)}
-          </div>
-        </header>
+        <div className="dashboard-header">
+          <h2>
+            Welcome {user?.firstName || "User"} 👋
+          </h2>
 
-        {/* Stats Cards */}
-        <section className="stats-grid">
+          <p>Manage your account and activities here</p>
+        </div>
+
+        <div className="stats-grid">
 
           <div className="stat-card">
             <h3>Total Orders</h3>
-            <p>12</p>
+            <p>15</p>
           </div>
 
           <div className="stat-card">
-            <h3>Wishlist Items</h3>
-            <p>5</p>
+            <h3>Wishlist</h3>
+            <p>6</p>
           </div>
 
-        </section>
+        </div>
 
-        {/* Quick Actions */}
-        <section className="action-section">
-
-          <h3>Quick Actions</h3>
-
-          <div className="action-grid">
-
-            <button>View Orders</button>
-            <button>Open Wishlist</button>
-            <button>Edit Profile</button>
-            <button>Contact Support</button>
-
-          </div>
-        </section>
-
-      </main>
+      </div>
     </div>
   );
 }

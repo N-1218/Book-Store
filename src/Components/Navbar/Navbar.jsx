@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 import { assets } from "../../assets/assets";
 import "./Navbar.css";
 
 function Navbar({ cartCount = 0, setSearchTerm }) {
   const [open, setOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(""); // ✅ controlled input
-  const dropdownRef = useRef(null);
+  const [searchValue, setSearchValue] = useState("");
 
-  // 🔍 Handle search
+  const dropdownRef = useRef(null);
+  const location = useLocation();
+
+  /* 🔍 Search Handler */
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchValue(value);
@@ -19,16 +21,25 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
     }
   };
 
-  // Close dropdown on outside click
+  /* ✅ Close dropdown on outside click */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  /* ✅ Close dropdown on route change */
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
+  /* ✅ Example user name (later you can fetch from localStorage or backend) */
+  const userName = "Profile";
 
   return (
     <nav className="nav-bar d-flex justify-content-between align-items-center px-4 py-2 shadow-sm bg-light">
@@ -45,8 +56,8 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
         />
       </div>
 
-      {/* Logo */}
-      <div className="d-flex align-items-center gap-2">
+      {/* ⭐ Logo */}
+      <Link to="/" className="d-flex align-items-center gap-2 text-decoration-none">
         <img
           src={assets.Logo}
           alt="Books Logo"
@@ -58,47 +69,38 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
           }}
         />
         <h4 className="mb-0 fw-bold text-primary">Books</h4>
-      </div>
+      </Link>
 
-      {/* Right */}
+      {/* ⭐ Right Section */}
       <div className="d-flex align-items-center gap-4 nav-right">
 
-        <Link to="/Blog" className="text-dark fw-semibold text-decoration-none">
+        <NavLink to="/blog" className="nav-link-custom">
           Old Books
-        </Link>
-          <Link to="/Blog" className="text-dark fw-semibold text-decoration-none">
+        </NavLink>
+
+        <NavLink to="/blog" className="nav-link-custom">
           New Books
-        </Link>
+        </NavLink>
 
-        {/* 🛒 Cart */}
-        <div className="position-relative">
-          <FaShoppingCart className="material-icons" />
-          {cartCount > 0 && (
-            <span className="cart-badge">{cartCount}</span>
-          )}
-        </div>
 
-        {/* 👤 Account */}
+        {/* 👤 Account Dropdown */}
         <div className="account-dropdown" ref={dropdownRef}>
           <button
             className="account-btn"
             onClick={() => setOpen(!open)}
-            aria-expanded={open}
           >
-            <FaUser className="material-icons" />
+            <div className="profile-avatar">
+              {userName.charAt(0).toUpperCase()}
+            </div>
           </button>
 
           {open && (
             <ul className="account-menu">
               <li>
-                <Link to="/RegistrationPage" onClick={() => setOpen(false)}>
-                  Registration
-                </Link>
+                <Link to="/registrationpage">Registration</Link>
               </li>
               <li>
-                <Link to="/LoginPage" onClick={() => setOpen(false)}>
-                  Login
-                </Link>
+                <Link to="/loginpage">Logout</Link>
               </li>
             </ul>
           )}

@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
 import Navbar from "./Components/Navbar/Navbar";
+
+
 import Home from "./Components/Home/Home";
 import Blog from "./Components/Blogs/Blog";
 import Footer from "./Components/Footer/Footer";
@@ -18,10 +20,9 @@ export default function App() {
 
   return (
     <>
-      <Navbar
-        cartCount={cartCount}
-        setSearchTerm={setSearchTerm}
-      />
+      {/* ⭐ Always Show Home Navbar */}
+      <Navbar cartCount={cartCount} setSearchTerm={setSearchTerm} />
+      
 
       <Routes>
 
@@ -44,7 +45,7 @@ export default function App() {
           element={<History setCartCount={setCartCount} />}
         />
 
-        {/* View All Button */}
+        {/* View All Page */}
         <Route
           path="/history"
           element={<History setCartCount={setCartCount} />}
@@ -54,7 +55,7 @@ export default function App() {
         <Route path="/registrationpage" element={<RegistrationPage />} />
         <Route path="/loginpage" element={<LoginPage />} />
 
-        {/* ✅ FIXED Dashboard Route */}
+        {/* Dashboard */}
         <Route path="/customer-dashboard" element={<CustomerDashboard />} />
 
         {/* 404 */}
