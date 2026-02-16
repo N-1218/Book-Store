@@ -1,176 +1,212 @@
-/* -------- Registration Page CSS -------- */
-
-/* 🌈 Background */
+/* ===== GLOBAL ===== */
 .registration-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 120px);
-    background: transparent;
-    font-family: "Poppins", sans-serif;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
 }
 
-/* 🌟 Floating glow background */
+/* ===== Animated Gradient Background ===== */
 .registration-container::before {
-    content: "";
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, #8ba7ff50, transparent 70%);
-    top: 12%;
-    left: 25%;
-    animation: floatGlow 8s ease-in-out infinite alternate;
-    z-index: 0;
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8ba7ff55, transparent 70%);
+  top: 5%;
+  left: 20%;
+  filter: blur(40px);
+  animation: floating 10s infinite alternate ease-in-out;
+  z-index: 0;
 }
 
-@keyframes floatGlow {
-    0% {
-        transform: translateY(0) scale(1);
-    }
-    100% {
-        transform: translateY(30px) scale(1.1);
-    }
+@keyframes floating {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(40px) scale(1.2); }
 }
 
-/* 🧊 Card */
+/* ===== Glass Card ===== */
 .registration-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 18px;
-    width: 420px;
-    max-width: 95%;
-    padding: 40px 50px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(51, 78, 172, 0.25);
-    z-index: 1;
-    animation: fadeInUp 1s ease;
+  width: 420px;
+  max-width: 95%;
+  padding: 45px 50px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.15),
+    inset 0 0 12px rgba(255,255,255,0.4);
+
+  position: relative;
+  z-index: 2;
+  animation: fadeSlide 0.9s ease;
 }
 
-/* Card animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Heading */
+/* ===== Title ===== */
 .registration-card h2 {
-    color: #2a3b8f;
-    margin-bottom: 25px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #273c8f;
+  letter-spacing: 0.6px;
 }
 
-/* ===== Form ===== */
+/* ===== FORM ===== */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-/* Two column row */
+/* ===== Form Row ===== */
 .form-row {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 15px;
 }
 
-/* 🎯 Inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #a1a8d1;
-    font-size: 0.95rem;
-    background: rgba(255, 255, 255, 0.5);
-    color: #333;
-    transition: all 0.3s ease;
+/* ===== Input Wrapper (Floating Label Ready) ===== */
+.input-group {
+  position: relative;
+  width: 100%;
 }
 
+/* ===== Inputs ===== */
+input,
+.dropdown {
+  width: 100%;
+  padding: 14px 14px;
+  border-radius: 10px;
+  border: 1px solid #b5bde2;
+  font-size: 14px;
+  background: rgba(255,255,255,0.55);
+  transition: all 0.35s ease;
+  outline: none;
+}
+
+/* Focus Glow */
+input:focus,
+.dropdown:focus {
+  border-color: #4050e0;
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(64, 80, 224, 0.35);
+}
+
+/* Placeholder Smooth */
 input::placeholder {
-    color: #666;
+  color: #777;
+  transition: 0.3s;
 }
 
-input:focus {
-    outline: none;
-    border-color: #334eac;
-    box-shadow: 0 0 8px rgba(51, 78, 172, 0.4);
-    background: #fff;
+input:focus::placeholder {
+  opacity: 0.4;
 }
 
-/* ☑️ Checkbox */
+/* ===== Checkbox ===== */
 .checkbox-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: #444;
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #444;
+  margin-top: 5px;
 }
 
-/* 🪄 Button (same as login) */
+.checkbox-row input {
+  accent-color: #4050e0;
+  cursor: pointer;
+}
+
+/* ===== Button ===== */
 .signup-btn {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #334eac, #5068ff);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(51, 78, 172, 0.3);
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: white;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #334eac, #5068ff);
+
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+
+  box-shadow: 0 6px 20px rgba(51, 78, 172, 0.4);
 }
 
+/* Button Shine Effect */
+.signup-btn::before {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 200%;
+  background: rgba(255,255,255,0.3);
+  top: -50%;
+  left: -60%;
+  transform: rotate(25deg);
+  transition: 0.6s;
+}
+
+.signup-btn:hover::before {
+  left: 120%;
+}
+
+/* Hover */
 .signup-btn:hover {
-    background: linear-gradient(135deg, #253d91, #4050e0);
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 6px 20px rgba(51, 78, 172, 0.5);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(51, 78, 172, 0.6);
 }
 
-/* 📱 Responsive */
+/* Click */
+.signup-btn:active {
+  transform: scale(0.97);
+}
+
+/* ===== Dropdown Styling ===== */
+.dropdown {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
-    .registration-card {
-        width: 90%;
-        padding: 30px 25px;
-    }
+  .registration-card {
+    padding: 35px 30px;
+  }
 
-    .form-row {
-        flex-direction: column;
-    }
-
-    .registration-card h2 {
-        font-size: 1.5rem;
-    }
+  .form-row {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
-    .registration-card {
-        width: 95%;
-        padding: 25px 20px;
-        border-radius: 12px;
-    }
+  .registration-card {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
 
-    .registration-card h2 {
-        font-size: 1.3rem;
-    }
-
-    input {
-        font-size: 0.9rem;
-    }
-
-    .signup-btn {
-        font-size: 0.9rem;
-    }
+  .registration-card h2 {
+    font-size: 20px;
+  }
 }

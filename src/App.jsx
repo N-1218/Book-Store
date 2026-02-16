@@ -10,6 +10,7 @@ import LoginPage from "./Components/LoginPage/LoginPage";
 import Contact from "./Components/Contacts/Contact";
 import About from "./Components/About/About";
 import History from "./Components/Card/History";
+import CustomerDashboard from "./Components/AdminPage/CustomerLogin/CustomerDashBoard";
 
 export default function App() {
   const [cartCount, setCartCount] = useState(0);
@@ -37,13 +38,13 @@ export default function App() {
           }
         />
 
-        {/* Category Page (See More Button) */}
+        {/* Category Page */}
         <Route
           path="/category/:category"
           element={<History setCartCount={setCartCount} />}
         />
 
-        {/* ⭐ View All Button Route */}
+        {/* View All Button */}
         <Route
           path="/history"
           element={<History setCartCount={setCartCount} />}
@@ -52,6 +53,9 @@ export default function App() {
         {/* Auth Pages */}
         <Route path="/registrationpage" element={<RegistrationPage />} />
         <Route path="/loginpage" element={<LoginPage />} />
+
+        {/* ✅ FIXED Dashboard Route */}
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
 
         {/* 404 */}
         <Route

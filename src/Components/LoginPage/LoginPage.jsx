@@ -1,46 +1,54 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import './Login.css';
-import { assets } from "../../assets/assets";;
+import "./Login.css";
 
 function LoginPage() {
   const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
+  /* Handle Input Change */
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
+  /* Handle Login Submit */
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = localStorage.getItem("user");
 
+    // If user not registered
     if (!storedUser) {
       alert("⚠️ No registered user found. Please register first!");
       navigate("/registrationpage");
       return;
     }
 
+    const parsedUser = JSON.parse(storedUser);
+
+    // Login validation
     if (
-      loginData.email === storedUser.email &&
-      loginData.password === storedUser.password
+      loginData.email === parsedUser.email &&
+      loginData.password === parsedUser.password
     ) {
-      alert(`Successful Login ✅ Welcome back, ${storedUser.firstName}!`);
-      navigate("/");
+      alert(`Successful Login ✅ Welcome back, ${parsedUser.firstName}!`);
+
+      // ✅ Correct Route
+      navigate("/customer-dashboard");
     } else {
       alert("❌ Invalid Email or Password!");
     }
   };
 
-  return (<>
-  
+  return (
     <div className="login-container">
       <div className="login-card">
         <h2>Welcome Back 👋</h2>
@@ -78,7 +86,7 @@ function LoginPage() {
         </p>
       </div>
     </div>
-  </>);
+  );
 }
 
 export default LoginPage;

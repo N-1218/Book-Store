@@ -7,6 +7,7 @@ function Registrationpage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    role: "",   // ✅ Added dropdown state
     firstName: "",
     lastName: "",
     email: "",
@@ -25,20 +26,34 @@ function Registrationpage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Save user data to localStorage
     localStorage.setItem("user", JSON.stringify(formData));
 
     alert(`✅ Welcome ${formData.firstName}! Registration Successful 🎉`);
-    navigate("/LoginPage"); // redirect to login
+    navigate("/LoginPage");
   };
 
   return (
     <>
-      
       <div className="registration-container">
         <div className="registration-card">
           <h2>Create Your Account</h2>
+
           <form onSubmit={handleSubmit}>
+
+            {/* ✅ Dropdown Added */}
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              className="dropdown"
+            >
+              <option value="">Select Role</option>
+              <option value="Student">Customer</option>
+              <option value="Teacher">Seller</option>
+              <option value="Admin">Admin</option>
+            </select>
+
             <div className="form-row">
               <input
                 type="text"
@@ -48,6 +63,7 @@ function Registrationpage() {
                 onChange={handleChange}
                 required
               />
+
               <input
                 type="text"
                 name="lastName"
@@ -86,7 +102,10 @@ function Registrationpage() {
               <label>Subscribe to our newsletter</label>
             </div>
 
-            <button type="submit" className="signup-btn">Register</button>
+            <button type="submit" className="signup-btn">
+              Register
+            </button>
+
           </form>
         </div>
       </div>
