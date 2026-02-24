@@ -1,235 +1,366 @@
-/* ===== Layout ===== */
-
-.dashboard-container {
-  display: flex;
-  min-height: calc(100vh - 60px);
-  margin-top: 60px;
-  font-family: "Poppins", sans-serif;
-  background: #f4f6fc;
+/* ================== RESET & BASE ================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===== Sidebar ===== */
+body {
+  background-color: #F2F0EA; /* Cream */
+  color: #333;
+}
+
+/* ================== DASHBOARD LAYOUT ================== */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
 .sidebar {
   width: 240px;
-  min-height: calc(100vh - 60px);
-  background: linear-gradient(180deg, #334eac, #5068ff);
-  color: white;
-  padding: 25px;
+  background-color: #272757; /* Dark purple */
+  color: #fff;
   display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 60px;
-  transition: all 0.3s ease;   /* ⭐ Smooth toggle */
+  transition: width 0.3s ease;
 }
 
-/* Closed Sidebar */
-.sidebar.closed {
-  width: 70px;
-  padding: 25px 10px;
+.sidebar.collapsed {
+  width: 60px;
 }
 
-/* Hide text when closed */
-.sidebar.closed .logo,
-.sidebar.closed .menu span {
-  display: none;
-}
-
-/* ===== Sidebar Header ===== */
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.logo {
-  font-size: 22px;
+.sidebar .logo {
+  font-size: 20px;
   font-weight: bold;
+  text-align: center;
+  padding: 20px 0;
 }
 
-/* Toggle Button */
-
-.sidebar-toggle {
-  background: white;
-  color: #334eac;
+.collapse-btn {
+  background: none;
   border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
+  color: #fff;
   cursor: pointer;
   font-size: 18px;
-  transition: 0.3s;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  transition: background 0.2s;
 }
 
-.sidebar-toggle:hover {
-  transform: scale(1.1);
+.collapse-btn:hover {
+  background-color: #505081; /* Deep purple on hover */
 }
 
-/* ===== Sidebar Menu ===== */
-
-.menu {
+.sidebar .menu {
   list-style: none;
-  padding: 0;
+  margin-top: 20px;
 }
 
-.menu li {
-  padding: 12px 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease;
+.sidebar .menu li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 5px 10px;
+  transition: all 0.2s ease;
+  font-size: 16px;
 }
 
-.menu li:hover {
-  background: rgba(255,255,255,0.2);
+.sidebar .menu li.active,
+.sidebar .menu li:hover {
+  background-color: #505081; /* Medium greyish purple */
+  color: #f1e9e9;
 }
 
-.menu .active {
-  background: white;
-  color: #334eac;
-  font-weight: 600;
+.sidebar .menu li span.plus-icon {
+  margin-left: auto;
+  font-weight: bold;
+  color: #fff;
+  background-color: #505081; /* Deep purple */
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
-/* Logout button */
-.logout {
-  margin-top: auto;
-  background: rgba(255,255,255,0.2);
+.sidebar .menu li span.plus-icon:hover {
+  background-color: #0F0E47; /* Deep navy purple */
+  transform: scale(1.2);
 }
 
-/* ===== Main Content ===== */
-
-.main-content {
+/* ================== MAIN ================== */
+.main {
   flex: 1;
-  padding: 35px;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  background-color: #F2F0EA; /* Cream */
+  padding: 20px 30px;
 }
 
-/* ===== Header ===== */
-
-.dashboard-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-.dashboard-header h2 {
-  font-weight: 600;
+.header h2 {
+  font-size: 28px;
+  color: #272757; /* Dark purple header text */
 }
 
-.dashboard-header p {
-  color: #666;
+/* ================== PROFILE AVATAR ================== */
+.profile {
+  position: relative;
+  cursor: pointer;
 }
 
-/* ===== Stats Grid ===== */
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #505081; /* Deep purple avatar */
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
 
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-menu button:hover {
+  background-color: #F2F0EA; /* Cream hover */
+}
+
+/* ================== CONTENT CARDS ================== */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
-  margin-bottom: 40px;
 }
 
-/* ===== Cards ===== */
-
-.stat-card {
-  background: white;
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
+.card {
+  background-color: #F2F0EA; /* Medium greyish purple */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.stat-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
 }
 
-.stat-card h3 {
-  color: #666;
-  font-size: 15px;
-  margin-bottom: 10px;
+.card h2 {
+  font-size: 24px;
+  color: #111;
 }
 
-.stat-card p {
-  font-size: 22px;
-  font-weight: 600;
-  color: #334eac;
+.card p {
+  color: #333;
+  margin-top: 5px;
 }
 
-/* ===== Buttons ===== */
+/* ================== TABLE ================== */
+.table {
+  background-color: #F2F0EA; /* Cream */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
 
-.stat-card button {
-  margin-top: 12px;
-  padding: 8px 16px;
-  border-radius: 8px;
+.table h3 {
+  margin-bottom: 15px;
+  color: #272757; /* Dark purple heading */
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row span {
+  color: #111;
+}
+
+.row img.book-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+/* ================== ADD BOOK FORM ================== */
+.btn-add-book {
+  padding: 8px 15px;
+  margin-bottom: 15px;
+  background-color: #e1e3ee; /* Pink */
+  color: #fff;
   border: none;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  background: linear-gradient(135deg, #334eac, #5068ff);
-  color: white;
-  font-weight: 500;
-  transition: 0.3s;
+  transition: background 0.2s;
 }
 
-.stat-card button:hover {
-  transform: scale(1.05);
+.btn-add-book:hover {
+  background-color: #d3d5e1;
 }
 
-/* ===== Tablet ===== */
-
-@media(max-width: 768px){
-
-  .sidebar {
-    width: 180px;
-    padding: 18px;
-  }
-
-  .sidebar.closed {
-    width: 60px;
-  }
-
-  .main-content {
-    padding: 20px;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-  }
+.add-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-/* ===== Mobile ===== */
+.add-book-form input,
+.add-book-form select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: border 0.2s;
+}
 
-@media(max-width: 576px){
+.add-book-form input:focus,
+.add-book-form select:focus {
+  border-color: #505081; /* Pink focus */
+}
 
-  .dashboard-container {
-    flex-direction: column;
-  }
+.add-book-form .btn-add {
+  background-color: #505081; /* Pink */
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-  .sidebar {
-    width: 100%;
-    position: relative;
-    top: 0;
-    min-height: auto;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 12px;
-  }
+.add-book-form .btn-add:hover {
+  background-color: #687f9a;
+}
 
-  .menu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+/* ================== WISHLIST SLIDER ================== */
+.wishlist-section {
+  background-color: #F2F0EA; /* Cream */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
 
-  .menu li {
-    margin-bottom: 0;
-  }
+.wishlist-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 10px 0;
+}
 
-  .logout {
-    margin-top: 0;
-  }
+.wishlist-card {
+  min-width: 120px;
+  background-color: #8686AC; /* Medium greyish purple */
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+}
+
+.wishlist-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.wishlist-card h4 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.wishlist-card .remove-btn {
+  background-color: #c1d0e7; /* Pink remove */
+  color: #fff;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.wishlist-card .remove-btn:hover {
+  background-color: #a9c2e9;
+}
+
+.slide-btn {
+  background-color: #505081; /* Deep purple */
+  color: #111;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slide-btn:hover {
+  background-color: #0F0E47; /* Deep navy purple */
+}
+
+/* ================== EMPTY STATE ================== */
+.empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 20px;
+  font-style: italic;
 }

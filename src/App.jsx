@@ -1,12 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 import Navbar from "./Components/Navbar/Navbar";
-
+import Footer from "./Components/Footer/Footer";
 
 import Home from "./Components/Home/Home";
 import Blog from "./Components/Blogs/Blog";
-import Footer from "./Components/Footer/Footer";
 import RegistrationPage from "./Components/Registration/Registrationpage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import Contact from "./Components/Contacts/Contact";
@@ -14,15 +13,27 @@ import About from "./Components/About/About";
 import History from "./Components/Card/History";
 import CustomerDashboard from "./Components/AdminPage/CustomerLogin/CustomerDashBoard";
 
-export default function App() {
+function App() {
+
   const [cartCount, setCartCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const location = useLocation();
+
+  /* ✅ Pages where Navbar + Footer should be hidden */
+  const hideLayoutRoutes = ["/customer-dashboard"];
+
+  const hideLayout = hideLayoutRoutes.includes(location.pathname);
+
   return (
     <>
-      {/* ⭐ Always Show Home Navbar */}
-      <Navbar cartCount={cartCount} setSearchTerm={setSearchTerm} />
-      
+      {/* ✅ Show Navbar only on public pages */}
+      {!hideLayout && (
+        <Navbar
+          cartCount={cartCount}
+          setSearchTerm={setSearchTerm}
+        />
+      )}
 
       <Routes>
 
@@ -55,8 +66,11 @@ export default function App() {
         <Route path="/registrationpage" element={<RegistrationPage />} />
         <Route path="/loginpage" element={<LoginPage />} />
 
-        {/* Dashboard */}
-        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+        {/* Dashboard (NO NAVBAR + FOOTER) */}
+        <Route
+          path="/customer-dashboard"
+          element={<CustomerDashboard />}
+        />
 
         {/* 404 */}
         <Route
@@ -66,7 +80,10 @@ export default function App() {
 
       </Routes>
 
-      <Footer />
+      {/* ✅ Show Footer only on public pages */}
+      {!hideLayout && <Footer />}
     </>
   );
 }
+
+export default App;

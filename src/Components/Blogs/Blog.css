@@ -176,3 +176,23 @@
     font-size: 20px;
   }
 }
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.wishlist-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.wishlist-btn:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}

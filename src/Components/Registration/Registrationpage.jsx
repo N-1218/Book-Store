@@ -40,19 +40,7 @@ function Registrationpage() {
 
           <form onSubmit={handleSubmit}>
 
-            {/* ✅ Dropdown Added */}
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-              className="dropdown"
-            >
-              <option value="">Select Role</option>
-              <option value="Student">Customer</option>
-              <option value="Teacher">Seller</option>
-              <option value="Admin">Admin</option>
-            </select>
+           
 
             <div className="form-row">
               <input

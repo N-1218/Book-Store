@@ -1,10 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
-import { assets } from "../../assets/assets";
+import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import "./Navbar.css";
 
+/*
+  Props:
+  cartCount → number of cart items
+  setSearchTerm → search handler from parent
+*/
+
 function Navbar({ cartCount = 0, setSearchTerm }) {
+
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -24,13 +30,15 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
   /* ✅ Close dropdown on outside click */
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (dropdownRef.current &&
+          !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   /* ✅ Close dropdown on route change */
@@ -38,69 +46,68 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
     setOpen(false);
   }, [location]);
 
-  /* ✅ Example user name (later you can fetch from localStorage or backend) */
   const userName = "Profile";
 
   return (
-    <nav className="nav-bar d-flex justify-content-between align-items-center px-4 py-2 shadow-sm bg-light">
+    <nav className="nav-bar">
 
       {/* 🔍 Search */}
-      <div className="d-flex align-items-center gap-3">
+      <div className="nav-left">
         <input
           type="text"
           placeholder="Search Book..."
-          className="form-control form-control-sm"
-          style={{ width: "220px" }}
           value={searchValue}
           onChange={handleSearch}
+          className="search-input"
         />
       </div>
 
       {/* ⭐ Logo */}
-      <Link to="/" className="d-flex align-items-center gap-2 text-decoration-none">
+      <Link to="/" className="logo">
         <img
-          src={assets.Logo}
-          alt="Books Logo"
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            objectFit: "cover",
-          }}
+          src="https://cdn-icons-png.flaticon.com/512/29/29302.png"
+          alt="logo"
         />
-        <h4 className="mb-0 fw-bold text-primary">Books</h4>
+        <h4>Books</h4>
       </Link>
 
       {/* ⭐ Right Section */}
-      <div className="d-flex align-items-center gap-4 nav-right">
+      <div className="nav-right">
 
-        <NavLink to="/blog" className="nav-link-custom">
+        <NavLink to="/oldbooks" className="nav-link-custom">
           Old Books
         </NavLink>
 
-        <NavLink to="/blog" className="nav-link-custom">
+        <NavLink to="/newbooks" className="nav-link-custom">
           New Books
         </NavLink>
 
+        {/* 🛒 Cart */}
+        <Link to="/cart" className="cart-icon">
+          <FaShoppingCart size={22} />
+          {cartCount > 0 && (
+            <span className="cart-count">{cartCount}</span>
+          )}
+        </Link>
 
-        {/* 👤 Account Dropdown */}
+        {/* 👤 Profile Dropdown */}
         <div className="account-dropdown" ref={dropdownRef}>
           <button
             className="account-btn"
             onClick={() => setOpen(!open)}
           >
-            <div className="profile-avatar">
-              {userName.charAt(0).toUpperCase()}
-            </div>
+            <FaUserCircle size={30} />
           </button>
 
           {open && (
             <ul className="account-menu">
+              
+              
               <li>
                 <Link to="/registrationpage">Registration</Link>
               </li>
               <li>
-                <Link to="/loginpage">Logout</Link>
+                <Link to="/loginpage">LogIn</Link>
               </li>
             </ul>
           )}
