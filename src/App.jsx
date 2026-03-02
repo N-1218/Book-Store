@@ -20,14 +20,13 @@ function App() {
 
   const location = useLocation();
 
-  /* ✅ Pages where Navbar + Footer should be hidden */
+  /*  Hide Navbar + Footer on Dashboard */
   const hideLayoutRoutes = ["/customer-dashboard"];
-
   const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <>
-      {/* ✅ Show Navbar only on public pages */}
+      {/* ================= NAVBAR ================= */}
       {!hideLayout && (
         <Navbar
           cartCount={cartCount}
@@ -35,6 +34,7 @@ function App() {
         />
       )}
 
+      {/* ================= ROUTES ================= */}
       <Routes>
 
         {/* Home Page */}
@@ -50,13 +50,12 @@ function App() {
           }
         />
 
-        {/* Category Page */}
+        {/* Category */}
         <Route
           path="/category/:category"
           element={<History setCartCount={setCartCount} />}
         />
 
-        {/* View All Page */}
         <Route
           path="/history"
           element={<History setCartCount={setCartCount} />}
@@ -66,21 +65,15 @@ function App() {
         <Route path="/registrationpage" element={<RegistrationPage />} />
         <Route path="/loginpage" element={<LoginPage />} />
 
-        {/* Dashboard (NO NAVBAR + FOOTER) */}
-        <Route
-          path="/customer-dashboard"
-          element={<CustomerDashboard />}
-        />
+        {/* ✅ FIXED DASHBOARD ROUTE */}
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
 
-        {/* 404 */}
-        <Route
-          path="*"
-          element={<h2 style={{ textAlign: "center" }}>Page Not Found</h2>}
-        />
+        {/* Page Not Found */}
+        <Route path="*" element={<h2>Page Not Found</h2>} />
 
       </Routes>
 
-      {/* ✅ Show Footer only on public pages */}
+      {/* ================= FOOTER ================= */}
       {!hideLayout && <Footer />}
     </>
   );

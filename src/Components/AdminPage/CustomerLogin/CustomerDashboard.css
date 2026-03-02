@@ -1,366 +1,288 @@
-/* ================== RESET & BASE ================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ================= ROOT COLORS ================= */
+
+:root {
+  --orange: #473124;
+  --orange-soft: #ffa866;
+  --orange-light: #fff4ec;
+
+  --bg-main: #f7f7f7;
+  --sidebar-bg: #a56d45;
+  --card-bg: #ffffff;
+
+  --text-dark: #2f2f2f;
+  --text-light: #888;
+  --border: #ececec;
 }
+
+/* ================= GLOBAL ================= */
 
 body {
-  background-color: #F2F0EA; /* Cream */
-  color: #333;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg-main);
 }
 
-/* ================== DASHBOARD LAYOUT ================== */
+/* ================= DASHBOARD LAYOUT ================= */
+
 .dashboard {
   display: flex;
   height: 100vh;
-  overflow: hidden;
 }
+
+/* ================= SIDEBAR ================= */
 
 .sidebar {
   width: 240px;
-  background-color: #272757; /* Dark purple */
-  color: #fff;
+  background: var(--sidebar-bg);
+  color: white;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
+  box-shadow: 3px 0 12px rgba(0,0,0,0.08);
 }
 
-.sidebar.collapsed {
-  width: 60px;
+.sidebar h2 {
+  color: var(--orange);
+  margin-bottom: 40px;
+  letter-spacing: 1px;
 }
 
-.sidebar .logo {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px 0;
-}
-
-.collapse-btn {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-  transition: background 0.2s;
-}
-
-.collapse-btn:hover {
-  background-color: #505081; /* Deep purple on hover */
-}
-
-.sidebar .menu {
+.sidebar ul {
   list-style: none;
-  margin-top: 20px;
+  padding: 0;
 }
 
-.sidebar .menu li {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 12px 20px;
+.sidebar li {
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 8px;
-  margin: 5px 10px;
-  transition: all 0.2s ease;
-  font-size: 16px;
+  transition: 0.3s;
+  color: #ddd;
 }
 
-.sidebar .menu li.active,
-.sidebar .menu li:hover {
-  background-color: #505081; /* Medium greyish purple */
-  color: #f1e9e9;
+.sidebar li:hover {
+  background: var(--orange);
+  color: white;
+  transform: translateX(5px);
 }
 
-.sidebar .menu li span.plus-icon {
-  margin-left: auto;
-  font-weight: bold;
-  color: #fff;
-  background-color: #505081; /* Deep purple */
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
+/* ================= MAIN AREA ================= */
 
-.sidebar .menu li span.plus-icon:hover {
-  background-color: #0F0E47; /* Deep navy purple */
-  transform: scale(1.2);
-}
-
-/* ================== MAIN ================== */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  background-color: #F2F0EA; /* Cream */
-  padding: 20px 30px;
 }
 
+/* ================= HEADER ================= */
+
 .header {
+  background: white;
+  padding: 18px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .header h2 {
-  font-size: 28px;
-  color: #272757; /* Dark purple header text */
+  color: var(--text-dark);
 }
 
-/* ================== PROFILE AVATAR ================== */
-.profile {
-  position: relative;
-  cursor: pointer;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #505081; /* Deep purple avatar */
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-
-/* Dropdown menu */
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-  overflow: hidden;
-  z-index: 10;
-}
-
-.dropdown-menu button {
-  width: 100%;
-  padding: 10px 15px;
+.header button {
+  background: var(--orange);
   border: none;
-  background: none;
-  text-align: left;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: 0.3s;
 }
 
-.dropdown-menu button:hover {
-  background-color: #F2F0EA; /* Cream hover */
+.header button:hover {
+  background: var(--orange-soft);
 }
 
-/* ================== CONTENT CARDS ================== */
+/* ================= CONTENT ================= */
+
+.content {
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* ================= CARDS ================= */
+
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
   gap: 20px;
 }
 
 .card {
-  background-color: #F2F0EA; /* Medium greyish purple */
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 14px;
   text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  transition: 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
 }
 
 .card h2 {
-  font-size: 24px;
-  color: #111;
+  color: var(--orange);
+  font-size: 32px;
+  margin: 0;
 }
 
 .card p {
-  color: #333;
-  margin-top: 5px;
+  color: var(--text-light);
 }
 
-/* ================== TABLE ================== */
-.table {
-  background-color: #F2F0EA; /* Cream */
+/* ================= BUTTON ================= */
+
+.primary-btn {
+  background: var(--orange);
+  border: none;
+  padding: 10px 18px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background: var(--orange-soft);
+}
+
+/* ================= FORM ================= */
+
+.add-book-form {
+  background: var(--orange-light);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.table h3 {
-  margin-bottom: 15px;
-  color: #272757; /* Dark purple heading */
+.add-book-form input,
+.add-book-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  flex: 1;
+}
+
+/* ================= BOOK ROW ================= */
+
+.table {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
 .row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 15px;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  transition: 0.2s;
 }
 
-.row:last-child {
-  border-bottom: none;
+.row:hover {
+  background: #fafafa;
 }
 
-.row span {
-  color: #111;
-}
-
-.row img.book-thumb {
-  width: 50px;
-  height: 50px;
+.row img {
+  width: 60px;
+  height: 70px;
   object-fit: cover;
+  border-radius: 8px;
+}
+
+.delete-btn {
+  margin-left: auto;
+  background: #ff5a5a;
+  border: none;
+  color: white;
+  padding: 7px 14px;
   border-radius: 6px;
-  margin-right: 10px;
-}
-
-/* ================== ADD BOOK FORM ================== */
-.btn-add-book {
-  padding: 8px 15px;
-  margin-bottom: 15px;
-  background-color: #e1e3ee; /* Pink */
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.btn-add-book:hover {
-  background-color: #d3d5e1;
+.delete-btn:hover {
+  background: #e04848;
 }
 
-.add-book-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+/* ================= WISHLIST ================= */
 
-.add-book-form input,
-.add-book-form select {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-  font-size: 14px;
-  transition: border 0.2s;
-}
-
-.add-book-form input:focus,
-.add-book-form select:focus {
-  border-color: #505081; /* Pink focus */
-}
-
-.add-book-form .btn-add {
-  background-color: #505081; /* Pink */
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.add-book-form .btn-add:hover {
-  background-color: #687f9a;
-}
-
-/* ================== WISHLIST SLIDER ================== */
 .wishlist-section {
-  background-color: #F2F0EA; /* Cream */
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
 .wishlist-slider {
   display: flex;
   overflow-x: auto;
+  gap: 20px;
   scroll-behavior: smooth;
-  gap: 10px;
   padding: 10px 0;
 }
 
+.wishlist-slider::-webkit-scrollbar {
+  display: none;
+}
+
 .wishlist-card {
-  min-width: 120px;
-  background-color: #8686AC; /* Medium greyish purple */
-  border-radius: 10px;
+  min-width: 180px;
+  background: var(--orange-light);
+  padding: 15px;
+  border-radius: 12px;
   text-align: center;
-  padding: 10px;
-  flex-shrink: 0;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.wishlist-card:hover {
+  transform: translateY(-5px);
 }
 
 .wishlist-card img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 5px;
+  border-radius: 10px;
 }
 
 .wishlist-card h4 {
-  font-size: 14px;
-  margin-bottom: 5px;
+  color: var(--text-dark);
 }
 
-.wishlist-card .remove-btn {
-  background-color: #c1d0e7; /* Pink remove */
-  color: #fff;
+.wishlist-card button {
+  background: var(--orange);
   border: none;
-  padding: 4px 6px;
-  border-radius: 5px;
-  font-size: 12px;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.wishlist-card .remove-btn:hover {
-  background-color: #a9c2e9;
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-.slide-btn {
-  background-color: #505081; /* Deep purple */
-  color: #111;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.slide-btn:hover {
-  background-color: #0F0E47; /* Deep navy purple */
-}
-
-/* ================== EMPTY STATE ================== */
-.empty {
-  text-align: center;
-  color: #6b7280;
-  padding: 20px;
-  font-style: italic;
+::-webkit-scrollbar-thumb {
+  background: var(--orange-soft);
+  border-radius: 10px;
 }

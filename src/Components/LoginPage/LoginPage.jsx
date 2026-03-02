@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Login.css";
 
 function LoginPage() {
+
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -10,55 +12,75 @@ function LoginPage() {
     password: "",
   });
 
-  /* Handle Input Change */
+  const [message, setMessage] = useState("");
+
+  /* ================= INPUT CHANGE ================= */
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  /* Handle Login Submit */
-  const handleSubmit = (e) => {
+  /* ================= LOGIN ================= */
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const storedUser = localStorage.getItem("user");
+    setMessage("");
 
-    // If user not registered
-    if (!storedUser) {
-      alert("⚠️ No registered user found. Please register first!");
-      navigate("/registrationpage");
-      return;
-    }
+    try {
 
-    const parsedUser = JSON.parse(storedUser);
+      const response = await axios.post(
+        "http://localhost:8080/user/login",
+        loginData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // ✅ important for CORS + Spring Security
+        }
+      );
 
-    // Login validation
-    if (
-      loginData.email === parsedUser.email &&
-      loginData.password === parsedUser.password
-    ) {
-      alert(`Successful Login ✅ Welcome back, ${parsedUser.firstName}!`);
+      // ✅ Save user data
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isLoggedIn", "true");
 
-      // ✅ Correct Route
-      navigate("/customer-dashboard");
-    } else {
-      alert("❌ Invalid Email or Password!");
+      setMessage("✅ Login Successful");
+
+      setTimeout(() => {
+        navigate("/customer-dashboard");
+      }, 1000);
+
+    } catch (error) {
+
+      console.log(error);
+
+      if (error.response) {
+        setMessage(error.response.data || "Login Failed");
+      } else {
+        setMessage("❌ Server Not Responding");
+      }
     }
   };
+
+  /* ================= UI ================= */
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2>Welcome Back 👋</h2>
-        <p>Please login to your account</p>
+
+        <h2>Login</h2>
+
+        {message && <p className="form-message">{message}</p>}
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="email"
             name="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             value={loginData.email}
             onChange={handleChange}
             required
@@ -67,23 +89,21 @@ function LoginPage() {
           <input
             type="password"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Password"
             value={loginData.password}
             onChange={handleChange}
             required
           />
 
-          <button type="submit" className="signup-btn">
-            Login
-          </button>
+          <button type="submit">Login</button>
+
         </form>
 
-        <p className="link-text">
-          Don't have an account?{" "}
-          <Link to="/registrationpage" className="link">
-            Sign up here
-          </Link>
+        <p>
+          Don't have an account?
+          <Link to="/registrationpage"> Register</Link>
         </p>
+
       </div>
     </div>
   );
