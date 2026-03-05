@@ -1,146 +1,116 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./CustomerDashboard.css";
 
 function CustomerDashboard() {
 
   const navigate = useNavigate();
-  const sliderRef = useRef(null);
 
   /* ================= USER CHECK ================= */
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-
     if (isLoggedIn !== "true") {
       navigate("/");
     }
   }, [navigate]);
 
-  /* ================= STATE ================= */
+  /* ================= STATES ================= */
 
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const [showForm, setShowForm] = useState(false);
-
-  const [myBooks, setMyBooks] = useState(
-    JSON.parse(localStorage.getItem("myBooks")) || []
-  );
-
-  const [wishlist, setWishlist] = useState(
-    JSON.parse(localStorage.getItem("wishlist")) || []
-  );
-
-  /* ✅ NEW ORDERS STATE */
-  const [orders, setOrders] = useState(
-    JSON.parse(localStorage.getItem("orders")) || []
-  );
+  const [myBooks, setMyBooks] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [newBook, setNewBook] = useState({
     title: "",
     price: "",
     condition: "",
-    imagePath: "",
   });
 
-  /* ================= FORM ================= */
+  /* ================= FETCH BOOKS ================= */
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+
+    if (userId) {
+      axios
+        .get(`http://localhost:8080/book/user/${userId}`)
+        .then((res) => setMyBooks(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  /* ================= HANDLE INPUT ================= */
 
   const handleInputChange = (e) => {
     setNewBook({ ...newBook, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () =>
-      setNewBook({ ...newBook, imagePath: reader.result });
-
-    reader.readAsDataURL(file);
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
+
+  /* ================= ADD BOOK ================= */
 
   const handleAddBook = () => {
 
-    if (!newBook.title || !newBook.price || !newBook.condition) {
+    if (!newBook.title || !newBook.price || !newBook.condition || !selectedFile) {
       alert("Fill all fields");
       return;
     }
 
-    const updatedBooks = [
-      ...myBooks,
-      { id: Date.now(), ...newBook },
-    ];
+    const userId = localStorage.getItem("userId");
 
-    setMyBooks(updatedBooks);
-    localStorage.setItem("myBooks", JSON.stringify(updatedBooks));
+    const formData = new FormData();
+    formData.append("title", newBook.title);
+    formData.append("price", newBook.price);
+    formData.append("condition", newBook.condition);
+    formData.append("userId", userId);
+    formData.append("file", selectedFile);
 
-    setNewBook({
-      title: "",
-      price: "",
-      condition: "",
-      imagePath: "",
-    });
-
-    setShowForm(false);
+    axios
+      .post("http://localhost:8080/book/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        setMyBooks([...myBooks, res.data]);
+        setShowForm(false);
+        setNewBook({
+          title: "",
+          price: "",
+          condition: "",
+        });
+        setSelectedFile(null);
+      })
+      .catch((err) => {
+        alert("Error adding book");
+        console.log(err);
+      });
   };
+
+  /* ================= DELETE BOOK ================= */
 
   const handleDeleteBook = (id) => {
-    const updated = myBooks.filter((b) => b.id !== id);
-    setMyBooks(updated);
-    localStorage.setItem("myBooks", JSON.stringify(updated));
-  };
-
-  /* ================= WISHLIST ================= */
-
-  const removeWishlist = (id) => {
-    const updated = wishlist.filter((b) => b.id !== id);
-    setWishlist(updated);
-    localStorage.setItem("wishlist", JSON.stringify(updated));
-  };
-
-  /* ================= ORDERS ================= */
-
-  const deleteOrder = (id) => {
-    const updated = orders.filter((o) => o.id !== id);
-    setOrders(updated);
-    localStorage.setItem("orders", JSON.stringify(updated));
-  };
-
-  /* ================= SLIDER ================= */
-
-  const slideLeft = () =>
-    sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
-
-  const slideRight = () =>
-    sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
-
-  /* ================= LOGOUT ================= */
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    navigate("/");
+    axios
+      .delete(`http://localhost:8080/book/delete/${id}`)
+      .then(() => {
+        setMyBooks(myBooks.filter((book) => book.id !== id));
+      })
+      .catch((err) => console.log(err));
   };
 
   /* ================= DASHBOARD ================= */
 
   const renderDashboard = () => (
     <div className="stats-grid">
-
       <div className="card">
         <h2>{myBooks.length}</h2>
         <p>Books Selling</p>
       </div>
-
-      <div className="card">
-        <h2>{wishlist.length}</h2>
-        <p>Wishlist</p>
-      </div>
-
-      <div className="card">
-        <h2>{orders.length}</h2>
-        <p>Total Orders</p>
-      </div>
-
     </div>
   );
 
@@ -187,7 +157,11 @@ function CustomerDashboard() {
             <option>Old</option>
           </select>
 
-          <input type="file" onChange={handleImageChange} />
+          {/* CHOOSE FILE OPTION */}
+          <input
+            type="file"
+            onChange={handleFileChange}
+          />
 
           <button className="primary-btn" onClick={handleAddBook}>
             Save
@@ -203,8 +177,9 @@ function CustomerDashboard() {
           <div key={book.id} className="row">
 
             <img
-              src={book.imagePath || "https://via.placeholder.com/60"}
+              src={`http://localhost:8080/uploads/${book.imageUrl}`}
               alt=""
+              width="60"
             />
 
             <span>{book.title}</span>
@@ -220,74 +195,14 @@ function CustomerDashboard() {
           </div>
         ))
       )}
-    </div>
-  );
-
-  /* ================= WISHLIST ================= */
-
-  const renderWishlist = () => (
-    <div className="wishlist-section">
-
-      <h3>Wishlist</h3>
-
-      <button onClick={slideLeft}>◀</button>
-
-      <div className="wishlist-slider" ref={sliderRef}>
-        {wishlist.map((book) => (
-          <div key={book.id} className="wishlist-card">
-            <img src={book.imagePath} alt="" />
-            <h4>{book.title}</h4>
-            <button onClick={() => removeWishlist(book.id)}>
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <button onClick={slideRight}>▶</button>
 
     </div>
   );
 
-  /* ================= ORDERS PAGE ================= */
-
-  const renderOrders = () => (
-    <div className="table">
-
-      <h3>My Orders</h3>
-
-      {orders.length === 0 ? (
-        <p>No Orders Yet</p>
-      ) : (
-        orders.map((order) => (
-          <div key={order.id} className="row">
-
-            <img src={order.imagePath} alt="" />
-
-            <span>{order.title}</span>
-            <span>₹{order.price}</span>
-            <span>Status: Delivered</span>
-
-            <button
-              className="delete-btn"
-              onClick={() => deleteOrder(order.id)}
-            >
-              Remove
-            </button>
-
-          </div>
-        ))
-      )}
-
-    </div>
-  );
-
-  /* ================= SWITCH CONTENT ================= */
+  /* ================= SWITCH ================= */
 
   const renderContent = () => {
     if (activeMenu === "books") return renderBooks();
-    if (activeMenu === "wishlist") return renderWishlist();
-    if (activeMenu === "orders") return renderOrders();
     return renderDashboard();
   };
 
@@ -302,11 +217,6 @@ function CustomerDashboard() {
         <ul>
           <li onClick={() => setActiveMenu("dashboard")}>Dashboard</li>
           <li onClick={() => setActiveMenu("books")}>My Books</li>
-          <li onClick={() => setActiveMenu("wishlist")}>Wishlist</li>
-
-          {/* ✅ NEW ORDER MENU */}
-          <li onClick={() => setActiveMenu("orders")}>Orders</li>
-
         </ul>
       </aside>
 
@@ -314,7 +224,14 @@ function CustomerDashboard() {
 
         <header className="header">
           <h2>Customer Dashboard</h2>
-          <button onClick={handleLogout}>Logout</button>
+          <button
+            onClick={() => {
+              localStorage.removeItem("isLoggedIn");
+              navigate("/");
+            }}
+          >
+            Logout
+          </button>
         </header>
 
         <div className="content">
