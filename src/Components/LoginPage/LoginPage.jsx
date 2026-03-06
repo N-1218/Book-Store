@@ -38,13 +38,16 @@ function LoginPage() {
         {
           headers: {
             "Content-Type": "application/json",
-          },
-          withCredentials: true, // ✅ important for CORS + Spring Security
+          }
         }
       );
 
-      // ✅ Save user data
-      localStorage.setItem("user", JSON.stringify(response.data));
+      const user = response.data;
+
+      /* ✅ Save user data */
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("userId", user.userId); // IMPORTANT
       localStorage.setItem("isLoggedIn", "true");
 
       setMessage("✅ Login Successful");
@@ -62,6 +65,7 @@ function LoginPage() {
       } else {
         setMessage("❌ Server Not Responding");
       }
+
     }
   };
 
@@ -69,6 +73,7 @@ function LoginPage() {
 
   return (
     <div className="login-container">
+
       <div className="login-card">
 
         <h2>Login</h2>
@@ -105,6 +110,7 @@ function LoginPage() {
         </p>
 
       </div>
+
     </div>
   );
 }

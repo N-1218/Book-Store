@@ -1,52 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CustomerDashboard.css";
+import "./CustomerDashBoard.css";
 
-function CustomerDashboard() {
+function CustomerDashBoard() {
 
-  const navigate = useNavigate();
-
-  /* ================= USER CHECK ================= */
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn !== "true") {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  /* ================= STATES ================= */
-
-  const [activeMenu, setActiveMenu] = useState("dashboard");
-  const [showForm, setShowForm] = useState(false);
   const [myBooks, setMyBooks] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [newBook, setNewBook] = useState({
     title: "",
     price: "",
-    condition: "",
+    condition: ""
   });
 
-  /* ================= FETCH BOOKS ================= */
+  const userId = localStorage.getItem("userId");
+
+  /* ================= FETCH USER BOOKS ================= */
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-
-    if (userId) {
-      axios
-        .get(`http://localhost:8080/book/user/${userId}`)
-        .then((res) => setMyBooks(res.data))
-        .catch((err) => console.log(err));
+    if(userId){
+      fetchBooks();
     }
   }, []);
 
-  /* ================= HANDLE INPUT ================= */
-
-  const handleInputChange = (e) => {
-    setNewBook({ ...newBook, [e.target.name]: e.target.value });
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/book/user/${userId}`
+      );
+      setMyBooks(response.data);
+    } catch (error) {
+      console.log("Error fetching books", error);
+    }
   };
+
+  /* ================= INPUT CHANGE ================= */
+
+  const handleChange = (e) => {
+    setNewBook({
+      ...newBook,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  /* ================= FILE CHANGE ================= */
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -54,88 +52,83 @@ function CustomerDashboard() {
 
   /* ================= ADD BOOK ================= */
 
-  const handleAddBook = () => {
+  const handleAddBook = async () => {
 
     if (!newBook.title || !newBook.price || !newBook.condition || !selectedFile) {
-      alert("Fill all fields");
+      alert("Please fill all fields");
       return;
     }
 
-    const userId = localStorage.getItem("userId");
+    try {
 
-    const formData = new FormData();
-    formData.append("title", newBook.title);
-    formData.append("price", newBook.price);
-    formData.append("condition", newBook.condition);
-    formData.append("userId", userId);
-    formData.append("file", selectedFile);
+      const formData = new FormData();
 
-    axios
-      .post("http://localhost:8080/book/add", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        setMyBooks([...myBooks, res.data]);
-        setShowForm(false);
-        setNewBook({
-          title: "",
-          price: "",
-          condition: "",
-        });
-        setSelectedFile(null);
-      })
-      .catch((err) => {
-        alert("Error adding book");
-        console.log(err);
+      formData.append("title", newBook.title);
+      formData.append("price", newBook.price);
+      formData.append("condition", newBook.condition);
+      formData.append("image", selectedFile);
+      formData.append("userId", userId);
+
+      const response = await axios.post(
+        "http://localhost:8080/book/add",
+        formData
+      );
+
+      setMyBooks([...myBooks, response.data]);
+
+      setNewBook({
+        title: "",
+        price: "",
+        condition: ""
       });
+
+      setSelectedFile(null);
+      setShowForm(false);
+
+    } catch (error) {
+      console.log(error);
+      alert("Error adding book");
+    }
   };
 
   /* ================= DELETE BOOK ================= */
 
-  const handleDeleteBook = (id) => {
-    axios
-      .delete(`http://localhost:8080/book/delete/${id}`)
-      .then(() => {
-        setMyBooks(myBooks.filter((book) => book.id !== id));
-      })
-      .catch((err) => console.log(err));
+  const handleDelete = async (bookId) => {
+
+    try {
+
+      await axios.delete(`http://localhost:8080/book/delete/${bookId}`);
+
+      setMyBooks(myBooks.filter((book) => book.bookId !== bookId));
+
+    } catch (error) {
+      console.log("Delete error", error);
+    }
   };
 
-  /* ================= DASHBOARD ================= */
+  /* ================= UI ================= */
 
-  const renderDashboard = () => (
-    <div className="stats-grid">
-      <div className="card">
-        <h2>{myBooks.length}</h2>
-        <p>Books Selling</p>
-      </div>
-    </div>
-  );
+  return (
+    <div className="dashboard-container">
 
-  /* ================= BOOKS ================= */
-
-  const renderBooks = () => (
-    <div className="table">
-
-      <h3>My Books</h3>
+      <h1>Customer Dashboard</h1>
 
       <button
-        className="primary-btn"
+        className="add-btn"
         onClick={() => setShowForm(!showForm)}
       >
-        + Add Book
+        Add Book
       </button>
 
       {showForm && (
-        <div className="add-book-form">
+        <div className="form-container">
 
           <input
+            type="text"
             name="title"
             placeholder="Book Title"
             value={newBook.title}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
 
           <input
@@ -143,100 +136,67 @@ function CustomerDashboard() {
             name="price"
             placeholder="Price"
             value={newBook.price}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
 
-          <select
+          <input
+            type="text"
             name="condition"
+            placeholder="Condition"
             value={newBook.condition}
-            onChange={handleInputChange}
-          >
-            <option value="">Condition</option>
-            <option>New</option>
-            <option>Good</option>
-            <option>Old</option>
-          </select>
+            onChange={handleChange}
+          />
 
-          {/* CHOOSE FILE OPTION */}
           <input
             type="file"
             onChange={handleFileChange}
           />
 
-          <button className="primary-btn" onClick={handleAddBook}>
-            Save
+          <button onClick={handleAddBook}>
+            Save Book
           </button>
 
         </div>
       )}
 
-      {myBooks.length === 0 ? (
-        <p>No Books Added</p>
-      ) : (
-        myBooks.map((book) => (
-          <div key={book.id} className="row">
+      <div className="book-list">
 
-            <img
-              src={`http://localhost:8080/uploads/${book.imageUrl}`}
-              alt=""
-              width="60"
-            />
+        {myBooks.length === 0 ? (
+          <p>No Books Added</p>
+        ) : (
 
-            <span>{book.title}</span>
-            <span>₹{book.price}</span>
+          myBooks.map((book) => (
 
-            <button
-              className="delete-btn"
-              onClick={() => handleDeleteBook(book.id)}
-            >
-              Delete
-            </button>
+            <div key={book.bookId} className="book-card">
 
-          </div>
-        ))
-      )}
+              <img
+                src={`http://localhost:8080/images/${book.image}`}
+                alt={book.title}
+                className="book-image"
+              />
 
-    </div>
-  );
+              <h3>{book.title}</h3>
 
-  /* ================= SWITCH ================= */
+              <p>Price: ₹{book.price}</p>
 
-  const renderContent = () => {
-    if (activeMenu === "books") return renderBooks();
-    return renderDashboard();
-  };
+              <p>Condition: {book.condition}</p>
 
-  /* ================= UI ================= */
+              <div className="btn-group">
 
-  return (
-    <div className="dashboard">
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(book.bookId)}
+                >
+                  Delete
+                </button>
 
-      <aside className="sidebar">
-        <h2>OldBook Store</h2>
+              </div>
 
-        <ul>
-          <li onClick={() => setActiveMenu("dashboard")}>Dashboard</li>
-          <li onClick={() => setActiveMenu("books")}>My Books</li>
-        </ul>
-      </aside>
+            </div>
 
-      <div className="main">
+          ))
 
-        <header className="header">
-          <h2>Customer Dashboard</h2>
-          <button
-            onClick={() => {
-              localStorage.removeItem("isLoggedIn");
-              navigate("/");
-            }}
-          >
-            Logout
-          </button>
-        </header>
-
-        <div className="content">
-          {renderContent()}
-        </div>
+        )}
 
       </div>
 
@@ -244,4 +204,4 @@ function CustomerDashboard() {
   );
 }
 
-export default CustomerDashboard;
+export default CustomerDashBoard;
