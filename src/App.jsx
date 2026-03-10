@@ -66,7 +66,7 @@ function App() {
         <Route path="/loginpage" element={<LoginPage />} />
 
         {/* ✅ FIXED DASHBOARD ROUTE */}
-        <Route path="/dashboard" element={<CustomerDashboard />} />
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} /> 
 
         {/* Page Not Found */}
         <Route path="*" element={<h2>Page Not Found</h2>} />

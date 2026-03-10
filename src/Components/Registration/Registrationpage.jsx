@@ -7,79 +7,58 @@ function Registrationpage() {
 
   const navigate = useNavigate();
 
-  /* ================= STATE ================= */
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    mobile: "",
     password: "",
     confirmPassword: "",
     gender: "",
     subscribe: false,
-
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      pincode: "",
-    },
+    street: "",
+    city: "",
+    state: "",
+    country: "India",
+    pincode: ""
   });
-
-  /* ================= HANDLE CHANGE ================= */
 
   const handleChange = (e) => {
 
     const { name, value, type, checked } = e.target;
 
-    // Address fields
-    if (["street", "city", "state", "pincode"].includes(name)) {
-      setFormData(prev => ({
-        ...prev,
-        address: {
-          ...prev.address,
-          [name]: value,
-        },
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    }
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }));
   };
 
-  /* ================= SUBMIT ================= */
-
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match ❌");
+      alert("❌ Passwords do not match");
       return;
     }
 
-    const { confirmPassword, ...dataToSend } = formData;
-
     try {
 
-      await axios.post(
+      const { confirmPassword, ...dataToSend } = formData;
+
+      const response = await axios.post(
         "http://localhost:8080/user/register",
-        dataToSend,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
+        dataToSend
       );
+
+      console.log(response.data);
 
       alert("✅ Registration Successful!");
       navigate("/loginpage");
 
     } catch (error) {
 
-      console.log(error);
+      console.error(error);
 
       if (error.response) {
         alert(error.response.data);
@@ -89,8 +68,6 @@ function Registrationpage() {
     }
   };
 
-  /* ================= UI ================= */
-
   return (
     <div className="registration-container">
       <div className="registration-card">
@@ -99,7 +76,6 @@ function Registrationpage() {
 
         <form onSubmit={handleSubmit}>
 
-          {/* NAME */}
           <div className="form-row">
             <input
               type="text"
@@ -120,7 +96,6 @@ function Registrationpage() {
             />
           </div>
 
-          {/* EMAIL */}
           <input
             type="email"
             name="email"
@@ -130,17 +105,15 @@ function Registrationpage() {
             required
           />
 
-          {/* PHONE */}
           <input
             type="tel"
-            name="phone"
+            name="mobile"
             placeholder="Mobile Number"
-            value={formData.phone}
+            value={formData.mobile}
             onChange={handleChange}
             required
           />
 
-          {/* PASSWORD */}
           <div className="form-row">
             <input
               type="password"
@@ -161,7 +134,6 @@ function Registrationpage() {
             />
           </div>
 
-          {/* GENDER */}
           <select
             name="gender"
             value={formData.gender}
@@ -174,23 +146,21 @@ function Registrationpage() {
             <option>Other</option>
           </select>
 
-          {/* STREET */}
           <input
             type="text"
-            name="street"    
+            name="street"
             placeholder="Street"
-            value={formData.address.street}
+            value={formData.street}
             onChange={handleChange}
             required
           />
 
-          {/* CITY STATE PINCODE */}
           <div className="form-row">
             <input
               type="text"
               name="city"
               placeholder="City"
-              value={formData.address.city}
+              value={formData.city}
               onChange={handleChange}
               required
             />
@@ -199,7 +169,7 @@ function Registrationpage() {
               type="text"
               name="state"
               placeholder="State"
-              value={formData.address.state}
+              value={formData.state}
               onChange={handleChange}
               required
             />
@@ -208,13 +178,12 @@ function Registrationpage() {
               type="text"
               name="pincode"
               placeholder="Pincode"
-              value={formData.address.pincode}
+              value={formData.pincode}
               onChange={handleChange}
               required
             />
           </div>
 
-          {/* SUBSCRIBE */}
           <div className="checkbox-row">
             <input
               type="checkbox"

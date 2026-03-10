@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./CustomerDashBoard.css";
+import "./CustomerDashboard.css";
 
 function CustomerDashBoard() {
 
@@ -16,13 +16,11 @@ function CustomerDashBoard() {
 
   const userId = localStorage.getItem("userId");
 
-  /* ================= FETCH USER BOOKS ================= */
-
   useEffect(() => {
-    if(userId){
+    if (userId) {
       fetchBooks();
     }
-  }, []);
+  }, [userId]);
 
   const fetchBooks = async () => {
     try {
@@ -31,11 +29,9 @@ function CustomerDashBoard() {
       );
       setMyBooks(response.data);
     } catch (error) {
-      console.log("Error fetching books", error);
+      console.log("Error fetching books:", error);
     }
   };
-
-  /* ================= INPUT CHANGE ================= */
 
   const handleChange = (e) => {
     setNewBook({
@@ -43,8 +39,6 @@ function CustomerDashBoard() {
       [e.target.name]: e.target.value
     });
   };
-
-  /* ================= FILE CHANGE ================= */
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -71,7 +65,12 @@ function CustomerDashBoard() {
 
       const response = await axios.post(
         "http://localhost:8080/book/add",
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
       );
 
       setMyBooks([...myBooks, response.data]);
@@ -83,10 +82,13 @@ function CustomerDashBoard() {
       });
 
       setSelectedFile(null);
+
       setShowForm(false);
 
+      fetchBooks(); // refresh list
+
     } catch (error) {
-      console.log(error);
+      console.log("Add Book Error:", error.response?.data || error.message);
       alert("Error adding book");
     }
   };
@@ -94,34 +96,82 @@ function CustomerDashBoard() {
   /* ================= DELETE BOOK ================= */
 
   const handleDelete = async (bookId) => {
-
     try {
-
       await axios.delete(`http://localhost:8080/book/delete/${bookId}`);
-
       setMyBooks(myBooks.filter((book) => book.bookId !== bookId));
-
     } catch (error) {
-      console.log("Delete error", error);
+      console.log("Delete error:", error);
     }
   };
 
-  /* ================= UI ================= */
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
 
   return (
+
     <div className="dashboard-container">
 
-      <h1>Customer Dashboard</h1>
+      {/* HEADER */}
 
-      <button
-        className="add-btn"
-        onClick={() => setShowForm(!showForm)}
-      >
-        Add Book
-      </button>
+      <div className="dashboard-header">
+        <h1>Old Book Store Dashboard</h1>
+
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+
+
+      {/* ACTION BUTTONS */}
+
+      <div className="dashboard-actions">
+
+        <button onClick={() => setShowForm(!showForm)}>
+          ➕ Sell Book
+        </button>
+
+        <button>📚 My Books</button>
+
+        <button>🛒 Browse Books</button>
+
+        <button>📦 Orders</button>
+
+        <button>👤 Profile</button>
+
+      </div>
+
+
+      {/* STATS */}
+
+      <div className="dashboard-stats">
+
+        <div className="stat-card">
+          <h3>{myBooks.length}</h3>
+          <p>My Books</p>
+        </div>
+
+        <div className="stat-card">
+          <h3>₹0</h3>
+          <p>Total Earnings</p>
+        </div>
+
+        <div className="stat-card">
+          <h3>0</h3>
+          <p>Orders</p>
+        </div>
+
+      </div>
+
+
+      {/* ADD BOOK FORM */}
 
       {showForm && (
+
         <div className="form-container">
+
+          <h3>Add New Book</h3>
 
           <input
             type="text"
@@ -139,13 +189,16 @@ function CustomerDashBoard() {
             onChange={handleChange}
           />
 
-          <input
-            type="text"
+          <select
             name="condition"
-            placeholder="Condition"
             value={newBook.condition}
             onChange={handleChange}
-          />
+          >
+            <option value="">Select Condition</option>
+            <option value="New">New</option>
+            <option value="Like New">Like New</option>
+            <option value="Good">Good</option>
+          </select>
 
           <input
             type="file"
@@ -157,7 +210,13 @@ function CustomerDashBoard() {
           </button>
 
         </div>
+
       )}
+
+
+      {/* BOOK LIST */}
+
+      <h2 className="section-title">My Books</h2>
 
       <div className="book-list">
 
@@ -170,7 +229,7 @@ function CustomerDashBoard() {
             <div key={book.bookId} className="book-card">
 
               <img
-                src={`http://localhost:8080/images/${book.image}`}
+                src={`http://localhost:8080/images/${book.imageUrl}`}
                 alt={book.title}
                 className="book-image"
               />
@@ -201,6 +260,7 @@ function CustomerDashBoard() {
       </div>
 
     </div>
+
   );
 }
 

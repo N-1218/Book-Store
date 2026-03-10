@@ -9,26 +9,33 @@ function LoginPage() {
 
   const [loginData, setLoginData] = useState({
     email: "",
-    password: "",
+    password: ""
   });
 
   const [message, setMessage] = useState("");
 
-  /* ================= INPUT CHANGE ================= */
-
+  // Handle input change
   const handleChange = (e) => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  /* ================= LOGIN ================= */
-
+  // Handle form submit
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    setMessage("");
+    // Frontend validation
+    if (!loginData.email || !loginData.password) {
+      setMessage("❌ Please enter email and password");
+      return;
+    }
+
+    setMessage("⏳ Authenticating...");
 
     try {
 
@@ -37,39 +44,42 @@ function LoginPage() {
         loginData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           }
         }
       );
 
       const user = response.data;
 
-      /* ✅ Save user data */
-
+      // Save user info
       localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("userId", user.userId); // IMPORTANT
+      localStorage.setItem("userId", user.id);
       localStorage.setItem("isLoggedIn", "true");
 
       setMessage("✅ Login Successful");
 
+      // Redirect after login
       setTimeout(() => {
         navigate("/customer-dashboard");
       }, 1000);
 
     } catch (error) {
 
-      console.log(error);
+      console.error("Login Error:", error);
 
       if (error.response) {
-        setMessage(error.response.data || "Login Failed");
-      } else {
-        setMessage("❌ Server Not Responding");
+        setMessage(`❌ ${error.response.data}`);
+      } 
+      else if (error.request) {
+        setMessage("❌ Server not responding. Check backend.");
+      } 
+      else {
+        setMessage("❌ Something went wrong");
       }
 
     }
-  };
 
-  /* ================= UI ================= */
+  };
 
   return (
     <div className="login-container">
@@ -78,26 +88,28 @@ function LoginPage() {
 
         <h2>Login</h2>
 
-        {message && <p className="form-message">{message}</p>}
+        {message && (
+          <p className={`form-message ${message.includes("✅") ? "success" : "error"}`}>
+            {message}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit}>
 
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter Email"
             value={loginData.email}
             onChange={handleChange}
-            required
           />
 
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter Password"
             value={loginData.password}
             onChange={handleChange}
-            required
           />
 
           <button type="submit">Login</button>
@@ -105,8 +117,8 @@ function LoginPage() {
         </form>
 
         <p>
-          Don't have an account?
-          <Link to="/registrationpage"> Register</Link>
+          Don't have an account?{" "}
+          <Link to="/registrationpage">Register</Link>
         </p>
 
       </div>
