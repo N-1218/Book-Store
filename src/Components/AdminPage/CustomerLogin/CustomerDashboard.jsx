@@ -1,11 +1,18 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CustomerDashboard.css";
 
 function CustomerDashBoard() {
 
-  const [myBooks, setMyBooks] = useState([]);
+  const userId = localStorage.getItem("userId");
+
+  const [activeSection, setActiveSection] = useState("mybooks");
   const [showForm, setShowForm] = useState(false);
+
+  const [myBooks, setMyBooks] = useState([]);
+  const [orders, setOrders] = useState([]);
+
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [newBook, setNewBook] = useState({
@@ -14,13 +21,14 @@ function CustomerDashBoard() {
     condition: ""
   });
 
-  const userId = localStorage.getItem("userId");
+  const [profile, setProfile] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: ""
+  });
 
-  useEffect(() => {
-    if (userId) {
-      fetchBooks();
-    }
-  }, [userId]);
+  /* ================= FETCH MY BOOKS ================= */
 
   const fetchBooks = async () => {
     try {
@@ -32,6 +40,28 @@ function CustomerDashBoard() {
       console.log("Error fetching books:", error);
     }
   };
+
+  /* ================= FETCH ORDERS ================= */
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/orders/user/${userId}`
+      );
+      setOrders(response.data);
+    } catch (error) {
+      console.log("Order fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userId) {
+      fetchBooks();
+      fetchOrders();
+    }
+  }, [userId]);
+
+  /* ================= INPUT CHANGE ================= */
 
   const handleChange = (e) => {
     setNewBook({
@@ -82,13 +112,12 @@ function CustomerDashBoard() {
       });
 
       setSelectedFile(null);
-
       setShowForm(false);
 
-      fetchBooks(); // refresh list
+      fetchBooks();
 
     } catch (error) {
-      console.log("Add Book Error:", error.response?.data || error.message);
+      console.log("Add Book Error:", error);
       alert("Error adding book");
     }
   };
@@ -104,6 +133,33 @@ function CustomerDashBoard() {
     }
   };
 
+  /* ================= PROFILE ================= */
+
+  const handleProfileChange = (e) => {
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleUpdateProfile = async () => {
+
+    try {
+      await axios.put(
+        `http://localhost:8080/user/update/${userId}`,
+        profile
+      );
+
+      alert("Profile Updated Successfully");
+
+    } catch (error) {
+      console.log("Profile update error:", error);
+    }
+
+  };
+
+  /* ================= LOGOUT ================= */
+
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/";
@@ -113,147 +169,231 @@ function CustomerDashBoard() {
 
     <div className="dashboard-container">
 
-      {/* HEADER */}
+      {/* ================= SIDEBAR ================= */}
 
-      <div className="dashboard-header">
-        <h1>Old Book Store Dashboard</h1>
+      <div className="sidebar">
 
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-
-
-      {/* ACTION BUTTONS */}
-
-      <div className="dashboard-actions">
+        <h2>Book Store</h2>
 
         <button onClick={() => setShowForm(!showForm)}>
           ➕ Sell Book
         </button>
 
-        <button>📚 My Books</button>
+        <button onClick={() => setActiveSection("mybooks")}>
+          📚 My Books
+        </button>
 
-        <button>🛒 Browse Books</button>
+        <button onClick={() => setActiveSection("orders")}>
+          📦 Orders
+        </button>
 
-        <button>📦 Orders</button>
+        <button onClick={() => setActiveSection("profile")}>
+          👤 Profile
+        </button>
 
-        <button>👤 Profile</button>
-
-      </div>
-
-
-      {/* STATS */}
-
-      <div className="dashboard-stats">
-
-        <div className="stat-card">
-          <h3>{myBooks.length}</h3>
-          <p>My Books</p>
-        </div>
-
-        <div className="stat-card">
-          <h3>₹0</h3>
-          <p>Total Earnings</p>
-        </div>
-
-        <div className="stat-card">
-          <h3>0</h3>
-          <p>Orders</p>
-        </div>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
 
       </div>
 
+      {/* ================= MAIN CONTENT ================= */}
 
-      {/* ADD BOOK FORM */}
+      <div className="main-content">
 
-      {showForm && (
+        {/* HEADER */}
 
-        <div className="form-container">
+        <div className="dashboard-header">
+          <h1>Old Book Store Dashboard</h1>
+        </div>
 
-          <h3>Add New Book</h3>
+        {/* STATS */}
 
-          <input
-            type="text"
-            name="title"
-            placeholder="Book Title"
-            value={newBook.title}
-            onChange={handleChange}
-          />
+        <div className="dashboard-stats">
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={newBook.price}
-            onChange={handleChange}
-          />
+          <div className="stat-card">
+            <h3>{myBooks.length}</h3>
+            <p>My Books</p>
+          </div>
 
-          <select
-            name="condition"
-            value={newBook.condition}
-            onChange={handleChange}
-          >
-            <option value="">Select Condition</option>
-            <option value="New">New</option>
-            <option value="Like New">Like New</option>
-            <option value="Good">Good</option>
-          </select>
-
-          <input
-            type="file"
-            onChange={handleFileChange}
-          />
-
-          <button onClick={handleAddBook}>
-            Save Book
-          </button>
+          <div className="stat-card">
+            <h3>{orders.length}</h3>
+            <p>Orders</p>
+          </div>
 
         </div>
 
-      )}
+        {/* ADD BOOK FORM */}
 
+        {showForm && (
 
-      {/* BOOK LIST */}
+          <div className="form-container">
 
-      <h2 className="section-title">My Books</h2>
+            <h3>Add New Book</h3>
 
-      <div className="book-list">
+            <input
+              type="text"
+              name="title"
+              placeholder="Book Title"
+              value={newBook.title}
+              onChange={handleChange}
+            />
 
-        {myBooks.length === 0 ? (
-          <p>No Books Added</p>
-        ) : (
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={newBook.price}
+              onChange={handleChange}
+            />
 
-          myBooks.map((book) => (
+            <select
+              name="condition"
+              value={newBook.condition}
+              onChange={handleChange}
+            >
+              <option value="">Select Condition</option>
+              <option value="New">New</option>
+              <option value="Like New">Like New</option>
+              <option value="Good">Good</option>
+            </select>
 
-            <div key={book.bookId} className="book-card">
+            <input type="file" onChange={handleFileChange} />
 
-              <img
-                src={`http://localhost:8080/images/${book.imageUrl}`}
-                alt={book.title}
-                className="book-image"
-              />
+            <button onClick={handleAddBook}>
+              Save Book
+            </button>
 
-              <h3>{book.title}</h3>
+          </div>
 
-              <p>Price: ₹{book.price}</p>
+        )}
 
-              <p>Condition: {book.condition}</p>
+        {/* ================= MY BOOKS ================= */}
 
-              <div className="btn-group">
+        {activeSection === "mybooks" && (
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(book.bookId)}
-                >
-                  Delete
-                </button>
+          <>
+            <h2 className="section-title">My Books</h2>
 
-              </div>
+            <div className="book-list">
+
+              {myBooks.length === 0 ? (
+                <p>No Books Added</p>
+              ) : (
+
+                myBooks.map((book) => (
+
+                  <div key={book.bookId} className="book-card">
+
+                    <img
+src={`http://localhost:8080/uploads/${book.imageUrl}`}
+alt={book.title}
+className="book-image"
+/>
+
+                    <h3>{book.title}</h3>
+
+                    <p>Price: ₹{book.price}</p>
+
+                    <p>Condition: {book.condition}</p>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(book.bookId)}
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                ))
+
+              )}
 
             </div>
+          </>
 
-          ))
+        )}
+
+        {/* ================= ORDERS ================= */}
+
+        {activeSection === "orders" && (
+
+          <div className="orders-section">
+
+            <h2>My Orders</h2>
+
+            {orders.length === 0 ? (
+              <p>No Orders Yet</p>
+            ) : (
+
+              orders.map((order) => (
+
+                <div key={order.orderId} className="order-card">
+
+                  <img
+                    src={`http://localhost:8080/images/${order.imageUrl}`}
+                    alt={order.title}
+                    className="book-image"
+                  />
+
+                  <h3>{order.title}</h3>
+
+                  <p>Price: ₹{order.price}</p>
+
+                  <p>Status: {order.status}</p>
+
+                </div>
+
+              ))
+
+            )}
+
+          </div>
+
+        )}
+
+        {/* ================= PROFILE ================= */}
+
+        {activeSection === "profile" && (
+
+          <div className="profile-section">
+
+            <h2>Edit Profile</h2>
+
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              onChange={handleProfileChange}
+            />
+
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              onChange={handleProfileChange}
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleProfileChange}
+            />
+
+            <input
+              type="text"
+              name="mobile"
+              placeholder="Mobile"
+              onChange={handleProfileChange}
+            />
+
+            <button onClick={handleUpdateProfile}>
+              Update Profile
+            </button>
+
+          </div>
 
         )}
 
@@ -265,3 +405,4 @@ function CustomerDashBoard() {
 }
 
 export default CustomerDashBoard;
+

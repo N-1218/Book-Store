@@ -134,3 +134,14 @@
 .features h2 {
   margin-top: 10px;    /* Adjust as needed */
 }
+/* Entrance animation for feature cards */
+.feature {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.feature.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}

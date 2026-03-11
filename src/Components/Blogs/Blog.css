@@ -1,198 +1,196 @@
-/* ===== PAGE BACKGROUND ===== */
-.page-background {
-  font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  padding: 40px 0;
-  background: linear-gradient(to bottom, #f5f7ff, #eef1ff);
+/* ================= PAGE BACKGROUND ================= */
+
+.page-background{
+  background:transparent;
+  min-height:100vh;
+  padding:60px 40px;
+  font-family:"Segoe UI",sans-serif;
 }
 
 
-/* ===== SECTION TITLE ===== */
-.carousel-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #2d2d2d;
+/* ================= TITLE ================= */
+
+.carousel-title{
+  text-align:center;
+  font-size:40px;
+  font-weight:700;
+  color:#1e293b;
+  margin-bottom:50px;
 }
 
 
-/* ===== CAROUSEL CONTAINER ===== */
-.carousel-container {
-  display: flex;
-  gap: 22px;
-  overflow-x: auto;
-  padding: 25px;
+/* ================= GRID ================= */
 
-  scroll-behavior: smooth;   /* Smooth sliding */
-
-  scrollbar-width: none;
-}
-
-.carousel-container::-webkit-scrollbar {
-  display: none;
+.carousel-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:30px;
 }
 
 
-/* ===== CARD (History Style Inspired) ===== */
-.carousel-card {
-  min-width: 230px;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+/* ================= CARD ================= */
 
-.carousel-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+.carousel-card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  transition:all 0.3s ease;
+
+  /* initial hidden state */
+  opacity:0;
+  transform:scale(0.8) translateY(30px);
 }
 
 
-/* ===== IMAGE WRAPPER ===== */
-.image-wrapper {
-  height: 180px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
-  overflow: hidden;
+/* ================= ACTIVATE POPUP ================= */
+
+.animate-card{
+  animation:cardPop 0.6s ease forwards;
 }
 
 
-/* ===== IMAGE FIX ===== */
-.carousel-card img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
+/* ================= CARD HOVER ================= */
 
-.carousel-card:hover img {
-  transform: scale(1.05);
+.carousel-card:hover{
+  transform:translateY(-8px) scale(1.04);
+  box-shadow:0 15px 35px rgba(0,0,0,0.18);
 }
 
 
-/* ===== BOOK TITLE ===== */
-.carousel-card h2 {
-  font-size: 17px;
-  font-weight: 600;
-  margin: 8px 0 14px 0;
-  color: #333;
-  min-height: 44px;
+/* ================= IMAGE ================= */
+
+.image-wrapper{
+  width:100%;
+  height:200px;
+  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.image-wrapper img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 0.4s ease;
+}
+
+.carousel-card:hover img{
+  transform:scale(1.08);
 }
 
 
-/* ===== SEE MORE BUTTON ===== */
-.see-more-btn {
-  background: linear-gradient(135deg, #6c4df6, #8f6bff);
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
+/* ================= TITLE ================= */
 
-.see-more-btn:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 18px rgba(108, 77, 246, 0.4);
-}
-
-.see-more-btn:active {
-  transform: scale(0.95);
+.carousel-card h2{
+  font-size:20px;
+  color:#1e293b;
+  margin-bottom:10px;
 }
 
 
-/* ===== EMPTY MESSAGE ===== */
-.no-books {
-  text-align: center;
-  font-size: 18px;
-  color: #888;
-  margin-top: 20px;
+/* ================= PRICE ================= */
+
+.price{
+  color:#16a34a;
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:15px;
 }
 
 
-/* ===== VIEW ALL BUTTON ===== */
-.view-all-wrapper {
-  text-align: center;
-  margin-top: 20px;
+/* ================= QTY CONTROLS ================= */
+
+.qty-controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
 }
 
-.view-all-btn {
-  background: linear-gradient(135deg, #6c4df6, #8f6bff);
-  border: none;
-  padding: 10px 28px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.qty-controls button{
+  width:34px;
+  height:34px;
+  border:none;
+  background:#f1f5f9;
+  color:#1e293b;
+  font-size:18px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.2s;
 }
 
-.view-all-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 18px rgba(108, 77, 246, 0.4);
+.qty-controls button:hover{
+  background:#e2e8f0;
+  transform:scale(1.1);
+}
+
+.qty-controls span{
+  color:#1e293b;
+  font-weight:600;
 }
 
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ================= BUY BUTTON ================= */
 
-@media (max-width: 768px) {
+.buy-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#f97316;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
 
-  .carousel-card {
-    min-width: 190px;
+.buy-btn:hover{
+  background:#ea580c;
+  transform:scale(1.05);
+}
+
+
+/* ================= NO BOOK MESSAGE ================= */
+
+.no-books{
+  text-align:center;
+  color:#64748b;
+  font-size:18px;
+}
+
+
+/* ================= CARD POPUP ANIMATION ================= */
+
+@keyframes cardPop{
+
+  0%{
+    opacity:0;
+    transform:scale(0.7) translateY(40px);
   }
 
-  .image-wrapper {
-    height: 150px;
+  60%{
+    opacity:1;
+    transform:scale(1.05) translateY(-5px);
   }
 
-  .carousel-title {
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .carousel-card {
-    min-width: 165px;
-    padding: 14px;
+  100%{
+    opacity:1;
+    transform:scale(1) translateY(0);
   }
 
-  .image-wrapper {
-    height: 130px;
-  }
-
-  .carousel-title {
-    font-size: 20px;
-  }
-}
-.card-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
 }
 
-.wishlist-btn {
-  background: #ef4444;
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.wishlist-btn:hover {
-  background: #dc2626;
-  transform: scale(1.05);
-}
+/* ================= STAGGER EFFECT ================= */
+
+.animate-card:nth-child(1){animation-delay:0.1s;}
+.animate-card:nth-child(2){animation-delay:0.2s;}
+.animate-card:nth-child(3){animation-delay:0.3s;}
+.animate-card:nth-child(4){animation-delay:0.4s;}
+.animate-card:nth-child(5){animation-delay:0.5s;}
+.animate-card:nth-child(6){animation-delay:0.6s;}
+.animate-card:nth-child(7){animation-delay:0.7s;}
+.animate-card:nth-child(8){animation-delay:0.8s;}

@@ -3,55 +3,39 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import "./Navbar.css";
 
-/*
-  Props:
-  cartCount → number of cart items
-  setSearchTerm → search handler from parent
-*/
-
 function Navbar({ cartCount = 0, setSearchTerm }) {
-
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const dropdownRef = useRef(null);
   const location = useLocation();
 
-  /* 🔍 Search Handler */
+  // Search input handler
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchValue(value);
-
-    if (setSearchTerm) {
-      setSearchTerm(value);
-    }
+    if (setSearchTerm) setSearchTerm(value);
   };
 
-  /* ✅ Close dropdown on outside click */
+  // Close profile dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current &&
-          !dropdownRef.current.contains(e.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  /* ✅ Close dropdown on route change */
+  // Close dropdown on route change
   useEffect(() => {
     setOpen(false);
   }, [location]);
 
-  const userName = "Profile";
-
   return (
     <nav className="nav-bar">
-
-      {/* 🔍 Search */}
+      {/* Left: Search */}
       <div className="nav-left">
         <input
           type="text"
@@ -62,7 +46,7 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
         />
       </div>
 
-      {/* ⭐ Logo */}
+      {/* Logo */}
       <Link to="/" className="logo">
         <img
           src="https://cdn-icons-png.flaticon.com/512/29/29302.png"
@@ -71,48 +55,46 @@ function Navbar({ cartCount = 0, setSearchTerm }) {
         <h4>Books</h4>
       </Link>
 
-      {/* ⭐ Right Section */}
+      {/* Right Section */}
       <div className="nav-right">
-
-        <NavLink to="/oldbooks" className="nav-link-custom">
-          Old Books
+        <NavLink
+          to="/"
+          className="nav-link-custom"
+          onClick={() => setSearchTerm("")} // Reset search when clicking Books
+        >
+          Books
         </NavLink>
 
-        <NavLink to="/newbooks" className="nav-link-custom">
-          New Books
+        <NavLink
+          to="/#contact"
+          className="nav-link-custom"
+          onClick={() => {
+            const section = document.getElementById("contact-section");
+            if (section) section.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Contact Us
         </NavLink>
 
-        {/* 🛒 Cart */}
+        {/* Cart */}
         <Link to="/cart" className="cart-icon">
           <FaShoppingCart size={22} />
-          {cartCount > 0 && (
-            <span className="cart-count">{cartCount}</span>
-          )}
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </Link>
 
-        {/* 👤 Profile Dropdown */}
+        {/* Profile Dropdown */}
         <div className="account-dropdown" ref={dropdownRef}>
-          <button
-            className="account-btn"
-            onClick={() => setOpen(!open)}
-          >
+          <button className="account-btn" onClick={() => setOpen(!open)}>
             <FaUserCircle size={30} />
           </button>
 
           {open && (
             <ul className="account-menu">
-              
-              
-              <li>
-                <Link to="/registrationpage">Registration</Link>
-              </li>
-              <li>
-                <Link to="/loginpage">LogIn</Link>
-              </li>
+              <li><Link to="/registrationpage">Registration</Link></li>
+              <li><Link to="/loginpage">LogIn</Link></li>
             </ul>
           )}
         </div>
-
       </div>
     </nav>
   );
